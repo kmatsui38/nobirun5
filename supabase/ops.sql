@@ -41,6 +41,29 @@ select u.id, u.email, p.nickname, p.grade
 --   ) as t(unit_id)
 -- on conflict (user_id, unit_id) do update set learned = true;
 
+-- 1-3b. 【そのまま使える版】既習範囲を「中2の1学期まで」に設定する
+--
+-- 中2の生徒（profiles.grade = 2）全員に一括で適用する。
+-- リストにない単元は自動的に未習（learned=false）に設定されるので、
+-- 学期が進んだら scope のリストに単元を追加して再実行すればよい。
+--
+-- 中2の1学期の想定範囲: 中1の全単元 ＋ 式の計算 ＋ 連立方程式
+-- （1学期に一次関数まで終わっていれば ('M2-C1') を scope に追加する）
+
+with scope(unit_id) as (
+  values ('M1-A1'), ('M1-A2'), ('M1-A3'), ('M1-B1'),
+         ('M1-B2'), ('M1-C1'), ('M1-D1'), ('M1-D2'),
+         ('M2-A1'), ('M2-A2')
+)
+insert into user_scope (user_id, unit_id, learned)
+select p.user_id, u.id, (u.id in (select unit_id from scope))
+  from profiles p cross join units u
+ where p.grade = 2
+on conflict (user_id, unit_id) do update set learned = excluded.learned;
+
+-- 特定の生徒だけに適用したい場合は、上の where を次に置き換える:
+--  where p.user_id = 'ここにユーザーid'
+
 -- 1-4. 設定した既習範囲を確認する
 select p.nickname, u.grade, u.id as unit_id, u.name
   from user_scope sc
