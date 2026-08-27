@@ -16,9 +16,13 @@ nobirun5 のフロントエンド（Next.js 静的SPA）。
 
 1. [Supabase](https://supabase.com) でプロジェクトを作成
 2. SQLエディタで `../supabase/migrations/*.sql` を番号順に実行
-3. `python3 ../tools/gen_seed_sql.py > ../supabase/seed.sql` を生成してSQLエディタで実行
-4. Authentication → Users から被験者のアカウント（メール+パスワード）を作成
-5. `.env.example` をコピーして `.env.local` を作り、Project Settings → API の値を設定
+3. `supabase/seed.sql`（リポジトリ同梱・自動生成済み）をSQLエディタで実行
+4. サンプルテンプレートを検品のうえ承認: `update templates set status = 'approved' where id in (...);`
+   （検品フローの「人の検品」に相当。実際に数問解いて確認してから承認する）
+5. Authentication → Users から被験者のアカウント（メール+パスワード）を作成
+   （profiles / streaks はトリガで自動作成。ニックネーム・学年は
+   `update profiles set nickname='○○', grade=2 where user_id='...';` で設定）
+6. `.env.example` をコピーして `.env.local` を作り、Project Settings → API の値を設定
 
 ```bash
 npm install
@@ -35,7 +39,13 @@ npm run build    # 静的エクスポート（out/ に生成）
 
 | パス | 画面 | 状態 |
 |---|---|---|
-| `/` | ホーム（S2）: ストリーク・今日の復習への導線 | 骨組み実装済み |
+| `/` | ホーム（S2）: ストリーク・今日の復習への導線 | 実装済み |
 | `/login` | ログイン（S1） | 実装済み |
-| `/session` | 復習セッション（S3/S4） | プレースホルダ |
-| `/map` | 苦手マップ（S5） | プレースホルダ |
+| `/session` | 復習セッション（S3/S4）: 出題→採点→解説→完了 | 実装済み |
+| `/map` | 苦手マップ（S5）: 単元×定着度ヒートマップ | 実装済み |
+
+## 動作確認済みのバックエンド
+
+マイグレーション・RPCはローカルPostgreSQL 16でE2Eテスト済み:
+セット生成（優先順位・単元上限・テンプレート重複禁止）、採点（numeric/choice）、
+再解答拒否、未完了時の完了拒否、ストリーク更新、苦手マップ集計。
