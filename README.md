@@ -54,8 +54,8 @@ tools/
 ├── validate_templates.py          # テンプレートの機械検証（検品フロー②）
 ├── preview_templates.py           # 問題例の出力（人の検品用）
 ├── gen_seed_sql.py                # YAML → シードSQL生成
+└── setup.sh                       # ツール用のPython環境を用意（初回のみ）
 web/                               # フロントエンド（Next.js 静的SPA → web/README.md）
-├── setup.sh                       # ツール用のPython環境を用意（初回のみ）
 requirements.txt                   # ツール用のPython依存
 ```
 
