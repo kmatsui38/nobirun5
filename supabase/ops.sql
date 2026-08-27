@@ -64,12 +64,27 @@ on conflict (user_id, unit_id) do update set learned = excluded.learned;
 -- 特定の生徒だけに適用したい場合は、上の where を次に置き換える:
 --  where p.user_id = 'ここにユーザーid'
 
--- 1-4. 設定した既習範囲を確認する
-select p.nickname, u.grade, u.id as unit_id, u.name
-  from user_scope sc
-  join units u on u.id = sc.unit_id
-  join profiles p on p.user_id = sc.user_id
- where sc.learned
+-- 1-4. 設定した既習範囲を確認する（要約）
+--      学年ごとに「何単元まで習ったか」と、その単元名を並べて表示する。
+select p.nickname, u.grade as 学年,
+       count(*) filter (where coalesce(sc.learned, false)) as 既習,
+       count(*) as 単元数,
+       string_agg(u.name, '、' order by u.seq)
+         filter (where coalesce(sc.learned, false)) as 既習の単元
+  from profiles p
+  cross join units u
+  left join user_scope sc on sc.user_id = p.user_id and sc.unit_id = u.id
+ group by p.nickname, u.grade
+ order by p.nickname, u.grade;
+
+-- 1-5. 設定した既習範囲を確認する（単元ごとの一覧）
+--      user_scope に行がない単元も「未習」として表示されるので、
+--      設定漏れがそのまま分かる。
+select p.nickname, u.grade as 学年, u.id as 単元id, u.name as 単元,
+       case when coalesce(sc.learned, false) then '既習' else '未習' end as 状態
+  from profiles p
+  cross join units u
+  left join user_scope sc on sc.user_id = p.user_id and sc.unit_id = u.id
  order by p.nickname, u.seq;
 
 -- ============================================================
