@@ -10,6 +10,7 @@
 - 数学 単元マスタ: [docs/curriculum/01_数学単元マスタ.md](docs/curriculum/01_数学単元マスタ.md)
 - MVP機能要件: [docs/requirements/01_MVP機能要件.md](docs/requirements/01_MVP機能要件.md)
 - 問題テンプレート設計: [docs/requirements/02_問題テンプレート設計.md](docs/requirements/02_問題テンプレート設計.md)
+- 技術スタック選定: [docs/requirements/03_技術スタック選定.md](docs/requirements/03_技術スタック選定.md)
 
 ## ドキュメント構成
 
@@ -26,7 +27,8 @@ docs/
 │   └── 01_数学単元マスタ.md        # 単元マスタの解説・一覧
 ├── requirements/
 │   ├── 01_MVP機能要件.md          # MVPの画面・学習ロジック・データ設計
-│   └── 02_問題テンプレート設計.md   # テンプレート形式・検品フロー・必要本数
+│   ├── 02_問題テンプレート設計.md   # テンプレート形式・検品フロー・必要本数
+│   └── 03_技術スタック選定.md      # スタック比較と推奨構成
 └── reference/
     └── mext/
         └── shidoyoryo_sugaku_h29_honbun.md  # 指導要領（数学）原文抽出テキスト
