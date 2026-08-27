@@ -14,13 +14,16 @@
 
 ## ツールの実行準備
 
-`tools/*.py` は PyYAML を使います。初回のみ次を実行してください。
+`tools/*.py` は PyYAML を使います。初回のみ次を実行してください（`.venv` に隔離してインストールするので、
+Homebrew の Python でも `externally-managed-environment` エラーになりません）。
 
 ```bash
-pip3 install -r requirements.txt
+bash tools/setup.sh
 ```
 
-問題テンプレートの検品は、インストール不要の[検品ページ](https://claude.ai/code/artifact/8acfe114-7971-4c21-a617-0cac36fb8c65)でも行えます。
+以後は `.venv/bin/python tools/xxx.py` の形で実行します。
+
+問題テンプレートの検品だけなら、インストール不要の[検品ページ](https://claude.ai/code/artifact/8acfe114-7971-4c21-a617-0cac36fb8c65)が使えます。
 
 ## ドキュメント構成
 
@@ -49,8 +52,9 @@ supabase/
 tools/
 ├── validate_templates.py          # テンプレートの機械検証（検品フロー②）
 ├── preview_templates.py           # 問題例の出力（人の検品用）
-└── gen_seed_sql.py                # YAML → シードSQL生成
+├── gen_seed_sql.py                # YAML → シードSQL生成
 web/                               # フロントエンド（Next.js 静的SPA → web/README.md）
+├── setup.sh                       # ツール用のPython環境を用意（初回のみ）
 requirements.txt                   # ツール用のPython依存
 ```
 
@@ -61,7 +65,7 @@ requirements.txt                   # ツール用のPython依存
 コマンドラインの場合:
 
 ```bash
-pip3 install -r requirements.txt                       # 初回のみ
-python3 tools/preview_templates.py                     # 全テンプレートの問題例
-python3 tools/preview_templates.py M2-C1 --samples 3   # 単元を指定
+bash tools/setup.sh                                              # 初回のみ
+.venv/bin/python tools/preview_templates.py                      # 全テンプレートの問題例
+.venv/bin/python tools/preview_templates.py M2-C1 --samples 3    # 単元を指定
 ```

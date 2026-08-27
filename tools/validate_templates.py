@@ -17,7 +17,15 @@ import re
 import sys
 from pathlib import Path
 
-import yaml
+try:
+    import yaml
+except ModuleNotFoundError:  # pragma: no cover
+    raise SystemExit(
+        "PyYAML が見つかりません。次を実行してから、もう一度お試しください。\n"
+        "    bash tools/setup.sh\n"
+        "以後は .venv/bin/python でこのスクリプトを実行してください。\n"
+        "（インストールせずに検品したい場合は README のリンク先の検品ページが使えます）"
+    )
 
 SAMPLES = 100
 MAX_TRIES = 1000
