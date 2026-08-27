@@ -40,6 +40,7 @@ export default function SessionPage() {
   const [phase, setPhase] = useState<Phase>({ kind: "loading" });
   const [inputs, setInputs] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
+  const [confidence, setConfidence] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (!isSupabaseConfigured) {
@@ -114,15 +115,32 @@ export default function SessionPage() {
       }
       current.answered = true;
       current.was_correct = data.is_correct;
+      setConfidence(null);
       setPhase({ kind: "result", index: phase.index, result: data as Result });
     } finally {
       setBusy(false);
     }
   }
 
+  // 自信申告（正解時のみ）。定着判定は変えず、次回出題間隔だけを補正する。
+  // スキップ可能なので、失敗しても学習の流れは止めない。
+  async function rateConfidence(confident: boolean) {
+    if (!current || confidence !== null) return;
+    setConfidence(confident);
+    try {
+      await getSupabase().rpc("rate_confidence", {
+        p_set_question_id: current.id,
+        p_confident: confident,
+      });
+    } catch {
+      // 申告の失敗は無視（未申告扱い＝現行挙動のまま）
+    }
+  }
+
   function next() {
     if (!setData || phase.kind !== "result") return;
     setInputs({});
+    setConfidence(null);
     const nextIndex = setData.questions.findIndex((q) => !q.answered);
     if (nextIndex === -1) {
       void completeSet(setData.set_id);
@@ -245,6 +263,44 @@ export default function SessionPage() {
               <div className="rounded-2xl bg-stone-100 p-4 text-sm whitespace-pre-wrap leading-relaxed">
                 {phase.result.explanation}
               </div>
+
+              {phase.result.is_correct && (
+                <div className="rounded-2xl border border-stone-200 bg-white p-4">
+                  <p className="text-sm font-bold text-center mb-3">
+                    明日も解ける自信ある？
+                  </p>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      onClick={() => rateConfidence(true)}
+                      disabled={confidence !== null}
+                      className={`rounded-xl border px-3 py-3 text-sm font-bold ${
+                        confidence === true
+                          ? "border-emerald-600 bg-emerald-50 text-emerald-800"
+                          : "border-stone-300 disabled:opacity-40"
+                      }`}
+                    >
+                      自信あり
+                    </button>
+                    <button
+                      onClick={() => rateConfidence(false)}
+                      disabled={confidence !== null}
+                      className={`rounded-xl border px-3 py-3 text-sm font-bold ${
+                        confidence === false
+                          ? "border-amber-500 bg-amber-50 text-amber-800"
+                          : "border-stone-300 disabled:opacity-40"
+                      }`}
+                    >
+                      まだ不安
+                    </button>
+                  </div>
+                  {confidence === false && (
+                    <p className="text-xs text-stone-500 text-center mt-3">
+                      早めにもう一度出すね。
+                    </p>
+                  )}
+                </div>
+              )}
+
               <button
                 onClick={next}
                 className="rounded-full bg-emerald-600 py-3 text-white font-bold"
