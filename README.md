@@ -4,7 +4,7 @@
 
 ## 現在のステータス
 
-**企画フェーズ**
+**開発フェーズ（MVP実装中）**
 
 - 企画書: [docs/planning/01_企画書.md](docs/planning/01_企画書.md)
 - 数学 単元マスタ: [docs/curriculum/01_数学単元マスタ.md](docs/curriculum/01_数学単元マスタ.md)
@@ -32,6 +32,11 @@ docs/
 └── reference/
     └── mext/
         └── shidoyoryo_sugaku_h29_honbun.md  # 指導要領（数学）原文抽出テキスト
+supabase/
+├── migrations/                    # DBスキーマ（0001_init.sql, 0002_rpc.sql）
+└── seed.sql                       # 単元マスタ・テンプレートのシード（自動生成）
 tools/
-└── validate_templates.py          # テンプレートの機械検証（検品フロー②）
+├── validate_templates.py          # テンプレートの機械検証（検品フロー②）
+└── gen_seed_sql.py                # YAML → シードSQL生成
+web/                               # フロントエンド（Next.js 静的SPA → web/README.md）
 ```
