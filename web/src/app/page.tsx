@@ -13,6 +13,16 @@ type HomeState =
 export default function HomePage() {
   const [state, setState] = useState<HomeState>({ kind: "loading" });
 
+  async function signOut() {
+    if (!window.confirm("ログアウトします。よろしいですか？")) return;
+    try {
+      await getSupabase().auth.signOut();
+    } catch {
+      // 通信に失敗してもローカルのセッションは破棄されるので画面は進める
+    }
+    setState({ kind: "signed_out" });
+  }
+
   useEffect(() => {
     if (!isSupabaseConfigured) {
       setState({ kind: "unconfigured" });
@@ -110,10 +120,16 @@ export default function HomePage() {
         )}
       </section>
 
-      <nav className="pb-6">
+      <nav className="pb-6 flex items-center justify-between">
         <Link href="/map/" className="text-sm text-emerald-700 underline">
           苦手マップを見る
         </Link>
+        <button
+          onClick={signOut}
+          className="text-sm text-stone-500 underline"
+        >
+          ログアウト
+        </button>
       </nav>
     </main>
   );
