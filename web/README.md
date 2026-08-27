@@ -32,10 +32,51 @@ npm run dev      # http://localhost:3000
 npm run build    # 静的エクスポート（out/ に生成）
 ```
 
-## デプロイ
+## デプロイ（Vercel）
 
-- MVP: Vercel にgit連携でデプロイ（環境変数を設定）
-- 商用化時: `npm run build` の `out/` を S3 に同期し CloudFront で配信
+MVPは Vercel にgit連携でデプロイする。手順は次のとおり。
+
+1. **デプロイ元のブランチを決める**
+   本番は `main` から配信する。作業ブランチの内容を main にマージしておく。
+2. **Vercel でプロジェクトを作成**
+   [vercel.com](https://vercel.com) にGitHubアカウントでログイン →
+   「Add New… → Project」→ `kmatsui38/nobirun5` を Import。
+3. **Root Directory に `web` を指定する**（重要）
+   リポジトリ直下ではなく `web` がフロントのルート。Import画面の
+   「Root Directory」の Edit から `web` を選ぶ。
+   Framework Preset は Next.js が自動で選ばれる。
+4. **環境変数を2つ設定する**（Environment Variables）
+   Supabase の Project Settings → API からコピーする。
+   `NEXT_PUBLIC_*` はビルド時に埋め込まれるため、**デプロイ前に設定すること**。
+
+   | Name | Value |
+   |---|---|
+   | `NEXT_PUBLIC_SUPABASE_URL` | `https://xxxxx.supabase.co` |
+   | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | `eyJ...`（anon public キー） |
+
+   ※ `service_role` キーは絶対に設定しない（ブラウザに露出し、RLSを迂回されるため）。
+5. **Deploy** を押す。`https://<プロジェクト名>.vercel.app` が発行される。
+6. **スマホで開いて動作確認**し、ホーム画面に追加してもらう
+   （iOS: 共有 → ホーム画面に追加 / Android: メニュー → ホーム画面に追加）。
+
+以後は main への push で自動的に再デプロイされる。
+
+### anonキーを公開してよい理由
+
+anon キーはブラウザに露出する前提の公開鍵で、権限は Row Level Security で制限している。
+ローカルPostgreSQLで `authenticated` ロールになりきって検証した結果:
+
+- 問題テンプレート（正解の式を含む）は読めない
+- 出題中の問題の正解・解説カラムは読めない
+- 他人のプロフィール・解答履歴・定着度は読めない
+- どのテーブルにも直接書き込めない（更新0行、挿入はRLS違反で拒否）
+
+学習データの書き込みはすべて security definer の RPC 経由に限定している。
+
+### 商用化時（S3 + CloudFront）
+
+`npm run build` の `out/` を S3 に同期し CloudFront で配信する
+（[技術スタック選定](../docs/requirements/03_技術スタック選定.md) 4.6 参照）。
 
 ## 画面
 
