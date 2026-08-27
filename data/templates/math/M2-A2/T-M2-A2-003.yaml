@@ -1,0 +1,41 @@
+id: T-M2-A2-003
+item: M2-A2
+item_kind: knowledge
+item_index: 1
+format: numeric
+difficulty: 1
+title: 二元一次方程式の解
+variables:
+  a:
+    type: int
+    min: 1
+    max: 6
+  b:
+    type: int
+    min: 1
+    max: 6
+  x0:
+    type: int
+    min: -6
+    max: 6
+  y0:
+    type: int
+    min: -6
+    max: 6
+constraints: []
+derived:
+  c: a * x0 + b * y0
+  ax: a * x0
+  rest: b * y0
+body: |-
+  二元一次方程式 {a}x + {b}y = {c} について、
+  x = {x0} のときの y の値を求めなさい。
+answers:
+  y: y0
+explanation: |-
+  x に {x0} を代入します。
+  {a} × ({x0}) + {b}y = {c}
+  {ax} + {b}y = {c}
+  {b}y = {rest}
+  y = {y0}
+status: draft

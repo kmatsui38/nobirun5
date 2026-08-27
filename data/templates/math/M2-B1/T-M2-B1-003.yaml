@@ -1,0 +1,26 @@
+id: T-M2-B1-003
+item: M2-B1
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 2
+title: 正多角形の1つの内角
+variables:
+  n:
+    type: int
+    min: 3
+    max: 12
+    exclude:
+    - 7
+    - 11
+constraints: []
+derived:
+  total: 180 * (n - 2)
+  ans: 180 * (n - 2) / n
+body: 正{n}角形の1つの内角の大きさを求めなさい。
+answers:
+  内角: ans
+explanation: |-
+  正{n}角形の内角の和は 180 × ({n} - 2) = {total}（°）です。
+  すべての内角が等しいので、{total} ÷ {n} = {ans}（°）
+status: draft

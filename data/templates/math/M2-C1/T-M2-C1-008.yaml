@@ -1,0 +1,40 @@
+id: T-M2-C1-008
+item: M2-C1
+item_kind: knowledge
+item_index: 1
+format: choice
+difficulty: 1
+title: 一次関数の意味
+variables:
+  q:
+    type: int
+    min: 1
+    max: 3
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: y が x の一次関数であるといえるのはどの式ですか。
+  2: 一次関数で、x が1増えると y はどうなりますか。
+  3: 比例 y = ax は一次関数といえますか。
+correct_by_case:
+  1: y = 3x - 2
+  2: 傾きの分だけ増える（減る）
+  3: 切片が0の一次関数といえる
+distractors_by_case:
+  1:
+  - y = 5/x
+  - y = x²
+  - y = 2
+  2:
+  - 必ず1増える
+  - 2倍になる
+  - 変わらない
+  3:
+  - 一次関数ではない
+  - 反比例の一種である
+  - 定数関数である
+explanation: |-
+  y が x の一次式で表されるとき、y は x の一次関数です。
+  比例 y = ax は、切片が0である特別な一次関数とみることができます。
+status: draft

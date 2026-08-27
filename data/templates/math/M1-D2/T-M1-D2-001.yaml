@@ -1,0 +1,27 @@
+id: T-M1-D2-001
+item: M1-D2
+item_kind: knowledge
+item_index: 1
+format: numeric
+difficulty: 2
+title: 多数回の試行と確率
+variables:
+  m:
+    type: int
+    min: 20
+    max: 80
+constraints: []
+derived:
+  n: '200'
+  a: 2 * m
+  ans: m
+body: |-
+  あるコインを {n}回投げたところ、表が {a}回出ました。
+  表が出る相対度数を百分率（％）で答えなさい。
+answers:
+  割合: ans
+explanation: |-
+  相対度数は （表が出た回数）÷（投げた回数）で求めます。
+  {a} ÷ {n} を計算し、100をかけると {ans}％ です。
+  投げる回数を増やすほど、この値は確率に近づいていきます。
+status: draft

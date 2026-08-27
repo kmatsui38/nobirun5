@@ -1,0 +1,40 @@
+id: T-M1-B1-001
+item: M1-B1
+item_kind: knowledge
+item_index: 1
+format: choice
+difficulty: 1
+title: 基本の作図
+variables:
+  q:
+    type: int
+    min: 1
+    max: 3
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 線分ABの垂直二等分線上にある点はどんな点ですか。
+  2: ∠AOBの二等分線上にある点はどんな点ですか。
+  3: 直線ℓ上にない点Pから、ℓへ垂線をひいたとき、交点までの長さは何を表しますか。
+correct_by_case:
+  1: 2点A, Bから等しい距離にある点
+  2: 2辺OA, OBから等しい距離にある点
+  3: 点Pと直線ℓとの距離
+distractors_by_case:
+  1:
+  - 線分ABの中点だけ
+  - Aに近い側にある点
+  - 線分AB上にある点
+  2:
+  - 点Oから等しい距離にある点
+  - ∠AOBの外側の点
+  - 辺OA上の点
+  3:
+  - 点Pと原点との距離
+  - 直線ℓの長さ
+  - 垂線の傾き
+explanation: |-
+  垂直二等分線は2点から等距離にある点の集まり、角の二等分線は角の2辺から等距離にある点の集まりです。
+  点と直線の距離は、点から直線にひいた垂線の長さで表します。
+status: draft

@@ -1,0 +1,40 @@
+id: T-M1-A3-002
+item: M1-A3
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 2
+title: 一元一次方程式（両辺に文字）
+variables:
+  a:
+    type: int
+    min: 2
+    max: 9
+  c:
+    type: int
+    min: 2
+    max: 9
+  x0: &id001
+    type: int
+    min: -9
+    max: 9
+    exclude:
+    - 0
+  b: *id001
+constraints:
+- a != c
+derived:
+  ac: a - c
+  d: (a - c) * x0 + b
+  acx: (a - c) * x0
+body: |-
+  次の方程式を解きなさい。
+  {a}x + ({b}) = {c}x + ({d})
+answers:
+  x: x0
+explanation: |-
+  文字の項を左辺に、数の項を右辺に移項します。
+  {a}x - {c}x = {d} - ({b})
+  {ac}x = {acx}
+  両辺を {ac} でわって x = {x0}
+status: draft

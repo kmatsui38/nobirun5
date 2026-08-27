@@ -1,0 +1,28 @@
+id: T-M1-A1-004
+item: M1-A1
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 1
+title: 正負の数の除法
+variables:
+  q: &id001
+    type: int
+    min: -9
+    max: 9
+    exclude:
+    - 0
+  b: *id001
+constraints: []
+derived:
+  a: q * b
+  ans: q
+body: |-
+  次の計算をしなさい。
+  {a} ÷ ({b})
+answers:
+  答え: ans
+explanation: |-
+  同じ符号の2数の商は正、異なる符号の2数の商は負になります。
+  絶対値の商に符号をつけて、{a} ÷ ({b}) = {ans}
+status: draft

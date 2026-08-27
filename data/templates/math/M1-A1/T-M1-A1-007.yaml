@@ -1,0 +1,44 @@
+id: T-M1-A1-007
+item: M1-A1
+item_kind: knowledge
+item_index: 1
+format: choice
+difficulty: 1
+title: 正負の数の用語
+variables:
+  q:
+    type: int
+    min: 1
+    max: 4
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 0より小さい数を何といいますか。
+  2: 数直線上で、原点からその数までの距離を何といいますか。
+  3: +3のように、0より大きい数を何といいますか。
+  4: 1, 2, 3, … のような正の整数をまとめて何といいますか。
+correct_by_case:
+  1: 負の数
+  2: 絶対値
+  3: 正の数
+  4: 自然数
+distractors_by_case:
+  1:
+  - 正の数
+  - 自然数
+  - 絶対値
+  2:
+  - 符号
+  - 自然数
+  - 負の数
+  3:
+  - 負の数
+  - 絶対値
+  - 整数
+  4:
+  - 整数
+  - 正の数
+  - 素数
+explanation: 正の数・負の数の基本用語です。0より大きい数が正の数、0より小さい数が負の数、原点からの距離が絶対値、正の整数が自然数です。
+status: draft

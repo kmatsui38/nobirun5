@@ -1,0 +1,41 @@
+id: T-M2-A2-004
+item: M2-A2
+item_kind: knowledge
+item_index: 2
+format: choice
+difficulty: 1
+title: 連立方程式と解の意味
+variables:
+  q:
+    type: int
+    min: 1
+    max: 3
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 連立方程式の解とはどんな値の組ですか。
+  2: 二元一次方程式 x + y = 5 の解は何組ありますか。
+  3: 連立方程式を解くときの基本の考え方はどれですか。
+correct_by_case:
+  1: どちらの方程式も成り立たせる x, y の組
+  2: 無数にある
+  3: 文字を1つ消去して一元一次方程式にする
+distractors_by_case:
+  1:
+  - 1つ目の方程式だけを成り立たせる組
+  - どちらか一方を成り立たせる組
+  - 式に出てくる数の組
+  2:
+  - 1組だけ
+  - 2組
+  - 解はない
+  3:
+  - 両方の式をたすだけ
+  - x と y を別々に推測する
+  - グラフをかかないと解けない
+explanation: |-
+  二元一次方程式1つだけでは解が無数にありますが、2つ組み合わせると
+  ふつう解の組はただ1つに決まります。加減法・代入法はどちらも
+  文字を1つ消去して一元一次方程式に帰着させる方法です。
+status: draft

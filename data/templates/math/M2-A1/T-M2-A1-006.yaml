@@ -1,0 +1,47 @@
+id: T-M2-A1-006
+item: M2-A1
+item_kind: knowledge
+item_index: 3
+format: choice
+difficulty: 2
+title: 文字式による説明
+variables:
+  q:
+    type: int
+    min: 1
+    max: 4
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: m, n を整数とするとき、偶数を表す式はどれですか。
+  2: m, n を整数とするとき、奇数を表す式はどれですか。
+  3: 連続する2つの整数を表す式の組はどれですか。
+  4: 十の位が a、一の位が b である2けたの整数を表す式はどれですか。
+correct_by_case:
+  1: 2n
+  2: 2n + 1
+  3: n, n + 1
+  4: 10a + b
+distractors_by_case:
+  1:
+  - 2n + 1
+  - n + 2
+  - n²
+  2:
+  - 2n
+  - n + 1
+  - 3n
+  3:
+  - n, n + 2
+  - 2n, 2n + 1
+  - n, 2n
+  4:
+  - ab
+  - a + b
+  - a + 10b
+explanation: |-
+  文字を使うと、あてはまる数すべてに共通する性質を説明できます。
+  n を整数とすると 2n は偶数、2n + 1 は奇数を表します。
+  2けたの整数は、位取りを考えて 10a + b と表します。
+status: draft

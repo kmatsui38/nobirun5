@@ -1,0 +1,41 @@
+id: T-M2-A2-005
+item: M2-A2
+item_kind: thinking
+item_index: 2
+format: numeric
+difficulty: 2
+title: 連立方程式の活用（代金）
+variables:
+  a:
+    type: int
+    min: 80
+    max: 200
+  b:
+    type: int
+    min: 80
+    max: 200
+  x0:
+    type: int
+    min: 2
+    max: 10
+  y0:
+    type: int
+    min: 2
+    max: 10
+constraints:
+- a != b
+derived:
+  n: x0 + y0
+  total: a * x0 + b * y0
+body: |-
+  1個 {a}円のパンと1個 {b}円のジュースを合わせて {n}個買ったところ、
+  代金の合計は {total}円でした。パンとジュースをそれぞれ何個買いましたか。
+answers:
+  パンの個数: x0
+  ジュースの個数: y0
+explanation: |-
+  パンを x 個、ジュースを y 個として連立方程式をつくります。
+  x + y = {n}
+  {a}x + {b}y = {total}
+  これを解いて x = {x0}, y = {y0}（個）
+status: draft

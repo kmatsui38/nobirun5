@@ -1,0 +1,28 @@
+id: T-M2-A1-004
+item: M2-A1
+item_kind: knowledge
+item_index: 1
+format: numeric
+difficulty: 2
+title: 単項式の除法
+variables:
+  q: &id001
+    type: int
+    min: -9
+    max: 9
+    exclude:
+    - 0
+  b: *id001
+constraints: []
+derived:
+  a: q * b
+  ans: q
+body: |-
+  次の計算をした結果について、x の係数を答えなさい。
+  {a}x² ÷ ({b})x
+answers:
+  xの係数: ans
+explanation: |-
+  係数どうし、文字どうしでわります。
+  {a} ÷ ({b}) = {ans}、x² ÷ x = x なので、答えは {ans}x です。
+status: draft

@@ -1,0 +1,32 @@
+id: T-M1-B1-006
+item: M1-B1
+item_kind: thinking
+item_index: 3
+format: choice
+difficulty: 2
+title: 作図・移動の活用
+variables:
+  q:
+    type: int
+    min: 1
+    max: 2
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 2つの町A, Bから等しい距離の地点に駅をつくるとき、どの作図を使いますか。
+  2: 2本の道路のどちらからも等しい距離にある地点を求めるには、どの作図を使いますか。
+correct_by_case:
+  1: 線分ABの垂直二等分線
+  2: 2直線がつくる角の二等分線
+distractors_by_case:
+  1:
+  - ∠Aの二等分線
+  - Aを通る垂線
+  - ABの延長
+  2:
+  - 垂直二等分線
+  - 円の接線
+  - 平行線
+explanation: 「等しい距離」という条件を、垂直二等分線や角の二等分線の性質に結びつけて考えます。
+status: draft

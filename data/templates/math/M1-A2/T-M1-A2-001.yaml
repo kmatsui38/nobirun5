@@ -1,0 +1,44 @@
+id: T-M1-A2-001
+item: M1-A2
+item_kind: knowledge
+item_index: 2
+format: choice
+difficulty: 1
+title: 文字式の表し方
+variables:
+  q:
+    type: int
+    min: 1
+    max: 4
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: a × 3 を、記号×を使わずに表すとどうなりますか。
+  2: x ÷ 5 を、記号÷を使わずに表すとどうなりますか。
+  3: a × a を、記号×を使わずに表すとどうなりますか。
+  4: 1 × y を、記号×を使わずに表すとどうなりますか。
+correct_by_case:
+  1: 3a
+  2: x/5
+  3: a²
+  4: y
+distractors_by_case:
+  1:
+  - a3
+  - 3+a
+  - a÷3
+  2:
+  - 5/x
+  - 5x
+  - x-5
+  3:
+  - 2a
+  - aa
+  - a+a
+  4:
+  - 1y
+  - y1
+  - y+1
+explanation: 文字式では×を省き、数を文字の前に書きます。÷は分数の形で表し、同じ文字の積は累乗の指数で表します。係数の1は省略します。
+status: draft

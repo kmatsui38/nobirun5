@@ -1,0 +1,29 @@
+id: T-M2-B1-007
+item: M2-B1
+item_kind: knowledge
+item_index: 1
+format: numeric
+difficulty: 1
+title: 三角形の内角
+variables:
+  a:
+    type: int
+    min: 20
+    max: 120
+  b:
+    type: int
+    min: 20
+    max: 120
+constraints:
+- 180 - a - b > 0
+derived:
+  ans: 180 - a - b
+body: |-
+  三角形の2つの内角の大きさが {a}° と {b}° です。
+  残りの内角の大きさを求めなさい。
+answers:
+  角度: ans
+explanation: |-
+  三角形の内角の和は180°です。
+  180 - {a} - {b} = {ans}（°）
+status: draft

@@ -1,0 +1,44 @@
+id: T-M2-C1-007
+item: M2-C1
+item_kind: thinking
+item_index: 2
+format: numeric
+difficulty: 2
+title: 2直線の交点
+variables:
+  m1:
+    type: int
+    min: -5
+    max: 5
+    exclude:
+    - 0
+  m2:
+    type: int
+    min: -5
+    max: 5
+    exclude:
+    - 0
+  x0:
+    type: int
+    min: -6
+    max: 6
+  y0:
+    type: int
+    min: -9
+    max: 9
+constraints:
+- m1 != m2
+derived:
+  n1: y0 - m1 * x0
+  n2: y0 - m2 * x0
+body: 2つの直線 y = {m1}x + ({n1}) と y = {m2}x + ({n2}) の交点の座標を求めなさい。
+answers:
+  x座標: x0
+  y座標: y0
+explanation: |-
+  交点では2つの式の y が等しくなります。
+  {m1}x + ({n1}) = {m2}x + ({n2})
+  これを解いて x = {x0}
+  どちらかの式に代入して y = {y0}
+  よって交点は ({x0}, {y0}) です。
+status: draft

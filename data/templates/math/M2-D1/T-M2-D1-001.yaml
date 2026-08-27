@@ -1,0 +1,30 @@
+id: T-M2-D1-001
+item: M2-D1
+item_kind: knowledge
+item_index: 1
+format: numeric
+difficulty: 1
+title: 四分位範囲
+variables:
+  q1:
+    type: int
+    min: 1
+    max: 50
+  d:
+    type: int
+    min: 1
+    max: 40
+constraints: []
+derived:
+  q3: q1 + d
+  ans: d
+body: |-
+  あるデータの第1四分位数は {q1}、第3四分位数は {q3} です。
+  四分位範囲を求めなさい。
+answers:
+  四分位範囲: ans
+explanation: |-
+  四分位範囲は （第3四分位数）-（第1四分位数）で求めます。
+  {q3} - {q1} = {ans}
+  四分位範囲は、中央付近の半分のデータが散らばる幅を表します。
+status: draft

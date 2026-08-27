@@ -1,0 +1,46 @@
+id: T-M1-B1-002
+item: M1-B1
+item_kind: knowledge
+item_index: 2
+format: choice
+difficulty: 1
+title: 図形の移動
+variables:
+  q:
+    type: int
+    min: 1
+    max: 4
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 図形を一定の方向に、一定の長さだけずらす移動を何といいますか。
+  2: 図形を1つの直線を折り目として折り返す移動を何といいますか。
+  3: 図形を1つの点を中心として、一定の角度だけまわす移動を何といいますか。
+  4: 180°の回転移動を特に何といいますか。
+correct_by_case:
+  1: 平行移動
+  2: 対称移動
+  3: 回転移動
+  4: 点対称移動
+distractors_by_case:
+  1:
+  - 対称移動
+  - 回転移動
+  - 拡大移動
+  2:
+  - 平行移動
+  - 回転移動
+  - 点対称移動
+  3:
+  - 平行移動
+  - 対称移動
+  - 平行四辺形移動
+  4:
+  - 線対称移動
+  - 平行移動
+  - 対称移動
+explanation: |-
+  移動は平行移動・対称移動・回転移動の3つに分けられます。
+  回転移動のうち、回転角が180°のものを特に点対称移動といいます。
+status: draft

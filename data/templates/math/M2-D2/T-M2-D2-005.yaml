@@ -1,0 +1,27 @@
+id: T-M2-D2-005
+item: M2-D2
+item_kind: thinking
+item_index: 2
+format: numeric
+difficulty: 2
+title: 起こらない確率
+variables:
+  a:
+    type: int
+    min: 1
+    max: 19
+constraints: []
+derived:
+  n: '20'
+  hazure: 20 - a
+  ans: (20 - a) * 5
+body: |-
+  {n}本のくじの中に当たりが {a}本あります。
+  この中から1本引くとき、はずれる確率を百分率（％）で答えなさい。
+answers:
+  確率: ans
+explanation: |-
+  はずれのくじは {n} - {a} = {hazure}（本）です。
+  確率は {hazure} ÷ {n} なので、百分率にすると {ans}％ です。
+  （当たる確率とはずれる確率をたすと100％になります。）
+status: draft

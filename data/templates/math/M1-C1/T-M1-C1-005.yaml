@@ -1,0 +1,46 @@
+id: T-M1-C1-005
+item: M1-C1
+item_kind: knowledge
+item_index: 1
+format: choice
+difficulty: 1
+title: 関数と変域
+variables:
+  q:
+    type: int
+    min: 1
+    max: 4
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 2つの数量 x, y があり、x の値を決めると y の値がただ1つに決まるとき、y は x の何であるといいますか。
+  2: 変数のとりうる値の範囲を何といいますか。
+  3: 比例 y = ax で、x の値が2倍、3倍になると y の値はどうなりますか。
+  4: 反比例 y = a/x で、x の値が2倍、3倍になると y の値はどうなりますか。
+correct_by_case:
+  1: 関数
+  2: 変域
+  3: 2倍、3倍になる
+  4: 2分の1、3分の1になる
+distractors_by_case:
+  1:
+  - 定数
+  - 変域
+  - 係数
+  2:
+  - 関数
+  - 座標
+  - 比例定数
+  3:
+  - 半分、3分の1になる
+  - 変わらない
+  - 2倍、4倍になる
+  4:
+  - 2倍、3倍になる
+  - 変わらない
+  - 4倍、9倍になる
+explanation: |-
+  x の値を決めると y の値がただ1つ決まるとき、y は x の関数であるといいます。
+  比例では x が2倍になると y も2倍に、反比例では x が2倍になると y は 1/2 倍になります。
+status: draft

@@ -1,0 +1,40 @@
+id: T-M1-D2-002
+item: M1-D2
+item_kind: knowledge
+item_index: 1
+format: choice
+difficulty: 1
+title: 確率の意味
+variables:
+  q:
+    type: int
+    min: 1
+    max: 3
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 多数回の試行で得られる相対度数は、試行回数を増やすとどうなりますか。
+  2: 「表が出る確率が0.5」であるコインを10回投げたとき、必ず起こることはどれですか。
+  3: 確率がとりうる値の範囲はどれですか。
+correct_by_case:
+  1: 一定の値に近づく
+  2: 必ず5回表が出るとは限らない
+  3: 0以上1以下
+distractors_by_case:
+  1:
+  - どんどん大きくなる
+  - 0に近づく
+  - ばらばらのまま
+  2:
+  - 必ず5回表が出る
+  - 必ず表が先に出る
+  - 必ず裏が5回出る
+  3:
+  - 0以上100以下
+  - 1以上10以下
+  - 決まっていない
+explanation: |-
+  多数回の試行をくり返すと相対度数は一定の値に近づき、その値を確率と考えます。
+  確率は0以上1以下の値で、個々の結果を確実に予言するものではありません。
+status: draft

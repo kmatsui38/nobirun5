@@ -1,0 +1,40 @@
+id: T-M1-C1-006
+item: M1-C1
+item_kind: knowledge
+item_index: 4
+format: choice
+difficulty: 1
+title: 比例・反比例のグラフ
+variables:
+  q:
+    type: int
+    min: 1
+    max: 3
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 比例 y = ax のグラフはどんな形になりますか。
+  2: 反比例 y = a/x のグラフはどんな形になりますか。
+  3: 比例 y = ax で a < 0 のとき、グラフはどの向きになりますか。
+correct_by_case:
+  1: 原点を通る直線
+  2: 双曲線
+  3: 右下がり
+distractors_by_case:
+  1:
+  - 原点を通らない直線
+  - 双曲線
+  - 放物線
+  2:
+  - 原点を通る直線
+  - 放物線
+  - 円
+  3:
+  - 右上がり
+  - 水平
+  - 垂直
+explanation: |-
+  比例のグラフは原点を通る直線、反比例のグラフは双曲線とよばれる2つの曲線になります。
+  比例定数が負のとき、比例のグラフは右下がりの直線になります。
+status: draft

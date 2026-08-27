@@ -19,7 +19,8 @@ data/
 ├── curriculum/
 │   └── math-units.yaml            # 数学 単元マスタ（機械可読・指導要領準拠）
 └── templates/
-    └── samples/                   # 問題テンプレートのサンプル（4本）
+    ├── samples/                   # 問題テンプレートのサンプル（4本）
+    └── math/<単元ID>/             # 数学の問題テンプレート（99本）
 docs/
 ├── planning/
 │   └── 01_企画書.md               # サービスコンセプト・企画書
@@ -37,6 +38,7 @@ supabase/
 └── seed.sql                       # 単元マスタ・テンプレートのシード（自動生成）
 tools/
 ├── validate_templates.py          # テンプレートの機械検証（検品フロー②）
+├── preview_templates.py           # 問題例の出力（人の検品用）
 └── gen_seed_sql.py                # YAML → シードSQL生成
 web/                               # フロントエンド（Next.js 静的SPA → web/README.md）
 ```

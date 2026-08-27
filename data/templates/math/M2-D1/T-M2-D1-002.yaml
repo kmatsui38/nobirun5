@@ -1,0 +1,44 @@
+id: T-M2-D1-002
+item: M2-D1
+item_kind: knowledge
+item_index: 1
+format: numeric
+difficulty: 1
+title: 中央値
+variables:
+  b:
+    type: int
+    min: 1
+    max: 20
+  d1:
+    type: int
+    min: 1
+    max: 9
+  d2:
+    type: int
+    min: 1
+    max: 9
+  d3:
+    type: int
+    min: 1
+    max: 9
+  d4:
+    type: int
+    min: 1
+    max: 9
+constraints: []
+derived:
+  v2: b + d1
+  v3: b + d1 + d2
+  v4: b + d1 + d2 + d3
+  v5: b + d1 + d2 + d3 + d4
+  ans: b + d1 + d2
+body: |-
+  次の5個のデータについて、中央値を求めなさい。
+  {b}, {v2}, {v3}, {v4}, {v5}
+answers:
+  中央値: ans
+explanation: |-
+  中央値は、データを小さい順に並べたときのまん中の値です。
+  5個のデータなので、小さいほうから3番目の {ans} が中央値になります。
+status: draft

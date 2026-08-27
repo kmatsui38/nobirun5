@@ -1,0 +1,29 @@
+id: T-M2-B2-005
+item: M2-B2
+item_kind: thinking
+item_index: 2
+format: numeric
+difficulty: 2
+title: 平行四辺形の辺の長さ
+variables:
+  a:
+    type: int
+    min: 3
+    max: 20
+  b:
+    type: int
+    min: 3
+    max: 20
+constraints: []
+derived:
+  ans: 2 * (a + b)
+body: |-
+  平行四辺形ABCDで、AB = {a}cm、BC = {b}cm です。
+  この平行四辺形の周の長さを求めなさい。
+answers:
+  周の長さ: ans
+explanation: |-
+  平行四辺形では、向かい合う辺の長さは等しくなります。
+  AB = CD = {a}cm、BC = AD = {b}cm なので
+  周の長さは 2 × ({a} + {b}) = {ans}（cm）
+status: draft

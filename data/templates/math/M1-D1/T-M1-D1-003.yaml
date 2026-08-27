@@ -1,0 +1,32 @@
+id: T-M1-D1-003
+item: M1-D1
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 1
+title: 累積度数
+variables:
+  f1:
+    type: int
+    min: 1
+    max: 12
+  f2:
+    type: int
+    min: 1
+    max: 12
+  f3:
+    type: int
+    min: 1
+    max: 12
+constraints: []
+derived:
+  ans: f1 + f2 + f3
+body: |-
+  度数分布表で、小さいほうから3つの階級の度数が順に {f1}人、{f2}人、{f3}人でした。
+  3つ目の階級までの累積度数を求めなさい。
+answers:
+  累積度数: ans
+explanation: |-
+  累積度数は、その階級までの度数をすべてたした値です。
+  {f1} + {f2} + {f3} = {ans}（人）
+status: draft

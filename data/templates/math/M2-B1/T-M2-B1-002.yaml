@@ -1,0 +1,22 @@
+id: T-M2-B1-002
+item: M2-B1
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 1
+title: 多角形の内角の和
+variables:
+  n:
+    type: int
+    min: 3
+    max: 15
+constraints: []
+derived:
+  ans: 180 * (n - 2)
+body: '{n}角形の内角の和を求めなさい。'
+answers:
+  内角の和: ans
+explanation: |-
+  n角形は、1つの頂点から対角線をひくと (n - 2) 個の三角形に分けられます。
+  内角の和は 180 × ({n} - 2) = {ans}（°）
+status: draft

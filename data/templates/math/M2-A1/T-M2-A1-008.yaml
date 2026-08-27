@@ -1,0 +1,34 @@
+id: T-M2-A1-008
+item: M2-A1
+item_kind: thinking
+item_index: 1
+format: choice
+difficulty: 1
+title: 式の計算の方法
+variables:
+  q:
+    type: int
+    min: 1
+    max: 2
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 3a + 2b と 2a - 5b をたすとき、なぜ a どうし、b どうしをまとめるのですか。
+  2: 単項式 6a²b ÷ 2a の計算で、係数と文字を別々に処理してよいのはなぜですか。
+correct_by_case:
+  1: 同類項どうしは分配法則でまとめられるから
+  2: 乗法・除法では順序を入れかえてよいから
+distractors_by_case:
+  1:
+  - 文字の順番が決まっているから
+  - 係数が違うから
+  - 答えを短くする決まりだから
+  2:
+  - 係数のほうが大切だから
+  - 文字は消えるから
+  - 答えが整数になるから
+explanation: |-
+  式の計算は、数の計算で成り立つ交換法則・結合法則・分配法則がそのまま使えることを
+  根拠にしています。同類項は分配法則により1つの項にまとめられます。
+status: draft

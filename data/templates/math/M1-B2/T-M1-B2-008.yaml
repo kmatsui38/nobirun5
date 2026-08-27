@@ -1,0 +1,29 @@
+id: T-M1-B2-008
+item: M1-B2
+item_kind: thinking
+item_index: 2
+format: numeric
+difficulty: 2
+title: 円柱の体積
+variables:
+  r:
+    type: int
+    min: 1
+    max: 9
+  h:
+    type: int
+    min: 2
+    max: 12
+constraints: []
+derived:
+  ans: r * r * h
+body: |-
+  底面の半径が {r}cm、高さが {h}cm の円柱があります。
+  この体積は □π cm³ です。□にあてはまる数を求めなさい。
+answers:
+  □: ans
+explanation: |-
+  円柱の体積は （底面積）×（高さ）で求めます。
+  底面積は {r} × {r} × π = ({r}×{r})π（cm²）
+  体積は {r} × {r} × π × {h} = {ans}π（cm³）
+status: draft

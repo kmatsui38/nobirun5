@@ -1,0 +1,25 @@
+id: T-M2-A1-009
+item: M2-A1
+item_kind: thinking
+item_index: 2
+format: numeric
+difficulty: 2
+title: 文字式の活用（連続する整数）
+variables:
+  n:
+    type: int
+    min: 2
+    max: 40
+constraints: []
+derived:
+  n1: n + 1
+  n2: n + 2
+  ans: 3 * n + 3
+body: 連続する3つの整数 {n}, {n1}, {n2} の和を求めなさい。
+answers:
+  和: ans
+explanation: |-
+  連続する3つの整数は n, n + 1, n + 2 と表せます。
+  和は n + (n + 1) + (n + 2) = 3n + 3 = 3(n + 1) となり、
+  真ん中の数の3倍になります。ここでは 3 × {n1} = {ans} です。
+status: draft

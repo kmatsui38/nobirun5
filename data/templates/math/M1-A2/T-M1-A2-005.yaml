@@ -1,0 +1,40 @@
+id: T-M1-A2-005
+item: M1-A2
+item_kind: knowledge
+item_index: 1
+format: choice
+difficulty: 1
+title: 文字を使う意味
+variables:
+  q:
+    type: int
+    min: 1
+    max: 3
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 文字を使って数量を表すよさとして正しいものはどれですか。
+  2: 式 2n + 1（nは整数）が表しているのはどれですか。
+  3: 式 2n（nは整数）が表しているのはどれですか。
+correct_by_case:
+  1: 数量の関係を一般的に表せる
+  2: 奇数
+  3: 偶数
+distractors_by_case:
+  1:
+  - 計算が必ず速くなる
+  - 答えが必ず整数になる
+  - 図をかかずに済む
+  2:
+  - 偶数
+  - 素数
+  - 自然数すべて
+  3:
+  - 奇数
+  - 負の数
+  - 小数
+explanation: |-
+  文字を使うと、いろいろな数にあてはまる関係を1つの式で一般的に表せます。
+  nを整数とすると 2n は偶数、2n + 1 は奇数を表します。
+status: draft

@@ -1,0 +1,30 @@
+id: T-M1-B2-004
+item: M1-B2
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 2
+title: おうぎ形の弧の長さ
+variables:
+  m:
+    type: int
+    min: 1
+    max: 4
+  j:
+    type: int
+    min: 1
+    max: 5
+constraints: []
+derived:
+  r: 6 * m
+  deg: 60 * j
+  ans: 2 * m * j
+body: |-
+  半径 {r}cm、中心角 {deg}° のおうぎ形があります。
+  この弧の長さは □π cm です。□にあてはまる数を求めなさい。
+answers:
+  □: ans
+explanation: |-
+  おうぎ形の弧の長さは （直径）× π ×（中心角）÷ 360 で求めます。
+  2 × {r} × π × {deg} ÷ 360 = {ans}π（cm）
+status: draft

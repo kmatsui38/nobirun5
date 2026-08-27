@@ -1,0 +1,32 @@
+id: T-M1-C1-002
+item: M1-C1
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 2
+title: 比例定数を求める
+variables:
+  a:
+    type: int
+    min: -9
+    max: 9
+    exclude:
+    - 0
+  x0:
+    type: int
+    min: 1
+    max: 9
+constraints: []
+derived:
+  y0: a * x0
+  ans: a
+body: |-
+  y は x に比例し、x = {x0} のとき y = {y0} です。
+  比例定数を求めなさい。
+answers:
+  比例定数: ans
+explanation: |-
+  比例の式は y = ax と表せます。x = {x0}, y = {y0} を代入すると
+  {y0} = a × {x0}
+  a = {ans}
+status: draft

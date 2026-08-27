@@ -1,0 +1,23 @@
+id: T-M2-B2-003
+item: M2-B2
+item_kind: thinking
+item_index: 1
+format: numeric
+difficulty: 1
+title: 平行四辺形の角
+variables:
+  a:
+    type: int
+    min: 30
+    max: 150
+constraints: []
+derived:
+  ans: 180 - a
+body: 平行四辺形ABCDで、∠A = {a}° です。∠B の大きさを求めなさい。
+answers:
+  角度: ans
+explanation: |-
+  平行四辺形では、となり合う角の和が180°になります（AD // BC より錯角・同側内角の性質）。
+  180 - {a} = {ans}（°）
+  （なお、向かい合う角は等しいので ∠C = {a}° です。）
+status: draft

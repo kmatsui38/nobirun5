@@ -1,0 +1,32 @@
+id: T-M1-C1-001
+item: M1-C1
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 1
+title: 比例の式と値
+variables:
+  a:
+    type: int
+    min: -9
+    max: 9
+    exclude:
+    - 0
+  x0:
+    type: int
+    min: -9
+    max: 9
+    exclude:
+    - 0
+constraints: []
+derived:
+  ans: a * x0
+body: |-
+  y は x に比例し、y = {a}x と表されます。
+  x = {x0} のときの y の値を求めなさい。
+answers:
+  y: ans
+explanation: |-
+  x に {x0} を代入します。
+  y = {a} × ({x0}) = {ans}
+status: draft

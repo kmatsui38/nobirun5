@@ -1,0 +1,22 @@
+id: T-M1-B2-009
+item: M1-B2
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 2
+title: 球の表面積
+variables:
+  r:
+    type: int
+    min: 1
+    max: 9
+constraints: []
+derived:
+  ans: 4 * r * r
+body: 半径 {r}cm の球の表面積は □π cm² です。□にあてはまる数を求めなさい。
+answers:
+  □: ans
+explanation: |-
+  球の表面積は 4 ×（半径）×（半径）× π で求めます。
+  4 × {r} × {r} × π = {ans}π（cm²）
+status: draft

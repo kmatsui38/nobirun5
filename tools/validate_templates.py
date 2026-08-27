@@ -71,12 +71,19 @@ def instantiate(tpl, seed):
     return env
 
 
+def fmt(v):
+    """整数値は小数点なしで表示する（Postgres側の _fmt_num と表示を揃える）。"""
+    if isinstance(v, float) and v.is_integer():
+        return str(int(v))
+    return str(v)
+
+
 def render(text, env, tpl_id):
     placeholders = re.findall(r"\{(\w+)\}", text)
     for p in placeholders:
         if p not in env:
             raise ValueError(f"本文/解説のプレースホルダ {{{p}}} が未定義です")
-    return text.format(**{k: env[k] for k in placeholders})
+    return text.format(**{k: fmt(env[k]) for k in placeholders})
 
 
 def check_template(path):
@@ -90,12 +97,12 @@ def check_template(path):
     if errors:
         return errors
 
-    fmt = tpl["format"]
+    tfmt = tpl["format"]
     case_var = tpl.get("case_var")
-    if fmt == "numeric":
+    if tfmt == "numeric":
         if "answers" not in tpl or "body" not in tpl:
             errors.append("numeric には body と answers が必要です")
-    elif fmt == "choice":
+    elif tfmt == "choice":
         if case_var:
             for field in ("body_by_case", "correct_by_case", "distractors_by_case"):
                 if field not in tpl:
@@ -105,7 +112,7 @@ def check_template(path):
                 if field not in tpl:
                     errors.append(f"choice には {field} が必要です")
     else:
-        errors.append(f"不明な format: {fmt}")
+        errors.append(f"不明な format: {tfmt}")
     if errors:
         return errors
 
@@ -114,7 +121,14 @@ def check_template(path):
         try:
             env = instantiate(tpl, seed)
 
-            if fmt == "numeric":
+            # 全ての値が整数であることを要求する。
+            # Postgres の整数どうしの除算は切り捨てになるため、割り切れない式があると
+            # Python 側の評価結果と食い違う。整数に限れば両者は必ず一致する。
+            for k, v in env.items():
+                if isinstance(v, float) and not v.is_integer():
+                    errors.append(f"seed={seed}: 変数/derived {k} が整数になりません: {v}")
+
+            if tfmt == "numeric":
                 body = render(tpl["body"], env, tpl["id"])
                 for field, expr in tpl["answers"].items():
                     val = safe_eval(expr, env)
@@ -141,7 +155,7 @@ def check_template(path):
             errors.append(f"seed={seed}: {e}")
             break
 
-    if len(seen_answers) <= 1 and fmt == "numeric":
+    if len(seen_answers) <= 1 and tfmt == "numeric":
         errors.append("全サンプルで解答が同一です（変数が実質固定になっていないか確認）")
     return errors
 

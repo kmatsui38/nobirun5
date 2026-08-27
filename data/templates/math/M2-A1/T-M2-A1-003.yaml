@@ -1,0 +1,27 @@
+id: T-M2-A1-003
+item: M2-A1
+item_kind: knowledge
+item_index: 1
+format: numeric
+difficulty: 1
+title: 単項式の乗法
+variables:
+  a: &id001
+    type: int
+    min: -9
+    max: 9
+    exclude:
+    - 0
+  b: *id001
+constraints: []
+derived:
+  ans: a * b
+body: |-
+  次の計算をした結果について、xy の係数を答えなさい。
+  {a}x × ({b})y
+answers:
+  xyの係数: ans
+explanation: |-
+  係数どうし、文字どうしをかけます。
+  {a} × ({b}) = {ans}、x × y = xy なので、答えは {ans}xy です。
+status: draft
