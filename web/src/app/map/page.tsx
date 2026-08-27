@@ -76,19 +76,21 @@ export default function MapPage() {
       {stats && (
         <div className="flex flex-col gap-6 pb-8">
           {grades.map((g) => {
+            // 中1〜中3のすべての単元を表示する。学習範囲の全体像の中で
+            // 今どこまで進んでいるかが見えることが、このマップの役割のため。
             const units = stats.filter((s) => s.grade === g);
-            // まだ習っておらず、出題もされていない学年は表示しない
-            // （中2の生徒に中3の未習単元だけを並べても情報にならないため）
-            if (!units.some((u) => u.learned || u.touched_count > 0)) return null;
-            // 習った単元を先に並べる
-            const sorted = [...units].sort(
-              (a, b) => Number(b.learned) - Number(a.learned)
-            );
+            if (units.length === 0) return null;
+            const learnedInGrade = units.filter((u) => u.learned).length;
             return (
               <section key={g}>
-                <h2 className="text-sm font-bold text-stone-500 mb-2">中{g}</h2>
+                <h2 className="text-sm font-bold text-stone-500 mb-2">
+                  中{g}
+                  <span className="ml-2 font-normal text-stone-400">
+                    習った単元 {learnedInGrade} / {units.length}
+                  </span>
+                </h2>
                 <div className="grid grid-cols-2 gap-2">
-                  {sorted.map((u) => (
+                  {units.map((u) => (
                     <div
                       key={u.unit_id}
                       className={`rounded-xl p-3 ${tileClass(u)}`}
