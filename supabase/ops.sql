@@ -87,6 +87,32 @@ select p.nickname, u.grade as 学年, u.id as 単元id, u.name as 単元,
   left join user_scope sc on sc.user_id = p.user_id and sc.unit_id = u.id
  order by p.nickname, u.seq;
 
+-- 1-6. 【トラブル時】苦手マップの色が出ないときの診断
+--
+-- 「既習範囲を設定したのに、苦手マップが全部『まだ習っていない』になる」
+-- という場合は、次の2つを順に確認する。
+
+-- 診断1: 苦手マップのRPCが既習フラグを返す版になっているか
+--        NGなら supabase/migrations/0005_mastery_map_scope.sql を実行する。
+select case when pg_get_functiondef('get_mastery_map()'::regprocedure) like '%learned%'
+            then 'OK  マイグレーション 0005 は適用済み'
+            else 'NG  0005_mastery_map_scope.sql が未適用（苦手マップが全て未習になります）'
+       end as 診断1_マイグレーション;
+
+-- 診断2: 既習範囲が登録されているか
+--        NGなら 1-3b を実行する。
+select p.nickname, p.grade as 学年,
+       count(sc.unit_id) as scope行数,
+       count(*) filter (where sc.learned) as 既習登録数,
+       case when count(*) filter (where sc.learned) > 0
+            then 'OK  既習範囲が登録済み'
+            else 'NG  既習範囲が未登録（学年以下の全単元が既習扱いになります）'
+       end as 診断2_既習範囲
+  from profiles p
+  left join user_scope sc on sc.user_id = p.user_id
+ group by p.nickname, p.grade
+ order by p.nickname;
+
 -- ============================================================
 -- 2. 利用状況の確認（毎日の見守り用）
 -- ============================================================

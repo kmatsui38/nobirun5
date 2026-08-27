@@ -9,7 +9,7 @@ type UnitStat = {
   grade: number;
   domain: string;
   name: string;
-  learned: boolean;
+  learned?: boolean;
   item_count: number;
   touched_count: number;
   avg_box: number;
@@ -49,7 +49,17 @@ export default function MapPage() {
           setError("苦手マップの取得に失敗しました。");
           return;
         }
-        setStats(data as UnitStat[]);
+        const rows = data as UnitStat[];
+        // learned が返ってこない場合は全単元が未習に見えてしまうため、
+        // 黙って表示せず、原因（マイグレーション未適用）を知らせる。
+        if (rows.length > 0 && rows.every((r) => r.learned === undefined)) {
+          setError(
+            "既習範囲の情報を取得できませんでした。" +
+              "Supabaseで 0005_mastery_map_scope.sql を実行してください。"
+          );
+          return;
+        }
+        setStats(rows);
       });
   }, []);
 
