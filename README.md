@@ -12,6 +12,16 @@
 - 問題テンプレート設計: [docs/requirements/02_問題テンプレート設計.md](docs/requirements/02_問題テンプレート設計.md)
 - 技術スタック選定: [docs/requirements/03_技術スタック選定.md](docs/requirements/03_技術スタック選定.md)
 
+## ツールの実行準備
+
+`tools/*.py` は PyYAML を使います。初回のみ次を実行してください。
+
+```bash
+pip3 install -r requirements.txt
+```
+
+問題テンプレートの検品は、インストール不要の[検品ページ](https://claude.ai/code/artifact/8acfe114-7971-4c21-a617-0cac36fb8c65)でも行えます。
+
 ## ドキュメント構成
 
 ```
@@ -41,4 +51,17 @@ tools/
 ├── preview_templates.py           # 問題例の出力（人の検品用）
 └── gen_seed_sql.py                # YAML → シードSQL生成
 web/                               # フロントエンド（Next.js 静的SPA → web/README.md）
+requirements.txt                   # ツール用のPython依存
+```
+
+## テンプレート検品
+
+ブラウザで確認する場合は[検品ページ](https://claude.ai/code/artifact/8acfe114-7971-4c21-a617-0cac36fb8c65)（各テンプレートの問題例・正解・解説を表示し、確認済みチェックと承認SQLの生成ができる）。
+
+コマンドラインの場合:
+
+```bash
+pip3 install -r requirements.txt                       # 初回のみ
+python3 tools/preview_templates.py                     # 全テンプレートの問題例
+python3 tools/preview_templates.py M2-C1 --samples 3   # 単元を指定
 ```
