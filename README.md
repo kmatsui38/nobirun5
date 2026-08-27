@@ -47,8 +47,9 @@ docs/
     └── mext/
         └── shidoyoryo_sugaku_h29_honbun.md  # 指導要領（数学）原文抽出テキスト
 supabase/
-├── migrations/                    # DBスキーマ（0001_init.sql, 0002_rpc.sql）
-└── seed.sql                       # 単元マスタ・テンプレートのシード（自動生成）
+├── migrations/                    # DBスキーマ（0001〜0004）
+├── seed.sql                       # 単元マスタ・テンプレートのシード（自動生成）
+└── ops.sql                        # 運用クエリ集（セットアップ・進捗確認・検証用の抽出）
 tools/
 ├── validate_templates.py          # テンプレートの機械検証（検品フロー②）
 ├── preview_templates.py           # 問題例の出力（人の検品用）

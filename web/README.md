@@ -20,9 +20,11 @@ nobirun5 のフロントエンド（Next.js 静的SPA）。
 4. サンプルテンプレートを検品のうえ承認: `update templates set status = 'approved' where id in (...);`
    （検品フローの「人の検品」に相当。実際に数問解いて確認してから承認する）
 5. Authentication → Users から被験者のアカウント（メール+パスワード）を作成
-   （profiles / streaks はトリガで自動作成。ニックネーム・学年は
-   `update profiles set nickname='○○', grade=2 where user_id='...';` で設定）
-6. `.env.example` をコピーして `.env.local` を作り、Project Settings → API の値を設定
+   （profiles / streaks はトリガで自動作成）
+6. **`../supabase/ops.sql` の「1. 被験者のセットアップ」を実行**
+   ニックネーム・学年の設定と、**既習範囲の登録**を行う。
+   既習範囲を登録しないと、まだ習っていない単元まで出題されるので必ず設定すること。
+7. `.env.example` をコピーして `.env.local` を作り、Project Settings → API の値を設定
 
 ```bash
 npm install
@@ -43,6 +45,11 @@ npm run build    # 静的エクスポート（out/ に生成）
 | `/login` | ログイン（S1） | 実装済み |
 | `/session` | 復習セッション（S3/S4）: 出題→採点→解説→完了 | 実装済み |
 | `/map` | 苦手マップ（S5）: 単元×定着度ヒートマップ | 実装済み |
+
+## 運用
+
+被験者の進捗確認・解答履歴の抽出・検証用の集計は `../supabase/ops.sql` にまとめてある。
+SupabaseのSQLエディタで必要な部分をコピーして実行する。
 
 ## 動作確認済みのバックエンド
 
