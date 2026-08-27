@@ -1,0 +1,28 @@
+id: T-M1-A1-002
+item: M1-A1
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 1
+title: 正負の数の減法
+variables:
+  a: &id001
+    type: int
+    min: -9
+    max: 9
+    exclude:
+    - 0
+  b: *id001
+constraints: []
+derived:
+  ans: a - b
+  negb: 0 - b
+body: |-
+  次の計算をしなさい。
+  {a} - ({b})
+answers:
+  答え: ans
+explanation: |-
+  減法は、ひく数の符号を変えて加法になおして計算します。
+  {a} - ({b}) = {a} + ({negb}) = {ans}
+status: draft

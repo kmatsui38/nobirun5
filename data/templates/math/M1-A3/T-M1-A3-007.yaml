@@ -1,0 +1,34 @@
+id: T-M1-A3-007
+item: M1-A3
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 2
+title: 比例式
+variables:
+  k:
+    type: int
+    min: 2
+    max: 8
+  a:
+    type: int
+    min: 1
+    max: 9
+  b:
+    type: int
+    min: 1
+    max: 9
+constraints: []
+derived:
+  c: a * k
+  ans: b * k
+body: |-
+  次の比例式で、x にあてはまる数を求めなさい。
+  {a} : {b} = {c} : x
+answers:
+  x: ans
+explanation: |-
+  比例式では、外側の項の積と内側の項の積が等しくなります。
+  {a} × x = {b} × {c}
+  x = {ans}
+status: draft

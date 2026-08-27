@@ -1,0 +1,46 @@
+id: T-M1-D1-004
+item: M1-D1
+item_kind: knowledge
+item_index: 1
+format: choice
+difficulty: 1
+title: データの用語
+variables:
+  q:
+    type: int
+    min: 1
+    max: 4
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 度数分布のようすを長方形の柱で表したグラフを何といいますか。
+  2: 各階級の度数を、度数の合計でわった値を何といいますか。
+  3: 階級の真ん中の値を何といいますか。
+  4: データの最大値と最小値の差を何といいますか。
+correct_by_case:
+  1: ヒストグラム
+  2: 相対度数
+  3: 階級値
+  4: 範囲
+distractors_by_case:
+  1:
+  - 折れ線グラフ
+  - 円グラフ
+  - 箱ひげ図
+  2:
+  - 累積度数
+  - 範囲
+  - 階級値
+  3:
+  - 中央値
+  - 相対度数
+  - 範囲
+  4:
+  - 階級
+  - 中央値
+  - 度数
+explanation: |-
+  ヒストグラムは分布のようすを柱で表したグラフです。
+  相対度数は全体に対する割合、階級値は階級の真ん中の値、範囲は最大値と最小値の差です。
+status: draft

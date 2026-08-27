@@ -1,0 +1,30 @@
+id: T-M1-B2-001
+item: M1-B2
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 1
+title: 直方体の体積
+variables:
+  a:
+    type: int
+    min: 2
+    max: 12
+  b:
+    type: int
+    min: 2
+    max: 12
+  h:
+    type: int
+    min: 2
+    max: 12
+constraints: []
+derived:
+  ans: a * b * h
+body: 縦 {a}cm、横 {b}cm、高さ {h}cm の直方体の体積を求めなさい。
+answers:
+  体積: ans
+explanation: |-
+  直方体の体積は （縦）×（横）×（高さ）で求めます。
+  {a} × {b} × {h} = {ans}（cm³）
+status: draft

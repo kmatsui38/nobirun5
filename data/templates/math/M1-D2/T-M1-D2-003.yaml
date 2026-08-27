@@ -1,0 +1,34 @@
+id: T-M1-D2-003
+item: M1-D2
+item_kind: thinking
+item_index: 1
+format: choice
+difficulty: 2
+title: 起こりやすさの読み取り
+variables:
+  q:
+    type: int
+    min: 1
+    max: 2
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: ペットボトルのふたを100回投げて表が62回出ました。このデータから言えることはどれですか。
+  2: 同じ実験を10回だけ行った結果と1000回行った結果では、どちらが確率のよい見積もりになりますか。
+correct_by_case:
+  1: 表が出やすい傾向がある
+  2: 1000回行った結果
+distractors_by_case:
+  1:
+  - 必ず表が出る
+  - 表と裏は同じ出やすさである
+  - 何も言えない
+  2:
+  - 10回行った結果
+  - どちらも同じ
+  - 回数とは関係ない
+explanation: |-
+  多数回の試行の結果から相対度数を求めると、起こりやすさの傾向を読み取れます。
+  試行回数が多いほど、相対度数は確率に近い値になります。
+status: draft

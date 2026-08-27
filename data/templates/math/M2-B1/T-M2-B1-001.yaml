@@ -1,0 +1,25 @@
+id: T-M2-B1-001
+item: M2-B1
+item_kind: knowledge
+item_index: 1
+format: numeric
+difficulty: 1
+title: 2直線が交わってできる角
+variables:
+  d:
+    type: int
+    min: 20
+    max: 160
+constraints: []
+derived:
+  ans: 180 - d
+body: |-
+  2つの直線が交わってできる4つの角のうち、1つの角の大きさは {d}° です。
+  この角ととなり合う角の大きさを求めなさい。
+answers:
+  角度: ans
+explanation: |-
+  となり合う2つの角は一直線をつくるので、和は180°になります。
+  180 - {d} = {ans}（°）
+  （なお、向かい合う角＝対頂角は {d}° で等しくなります。）
+status: draft

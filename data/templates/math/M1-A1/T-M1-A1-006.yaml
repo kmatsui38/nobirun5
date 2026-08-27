@@ -1,0 +1,24 @@
+id: T-M1-A1-006
+item: M1-A1
+item_kind: knowledge
+item_index: 1
+format: numeric
+difficulty: 1
+title: 絶対値
+variables:
+  a:
+    type: int
+    min: 1
+    max: 20
+constraints: []
+derived:
+  ans: a
+body: |-
+  次の数の絶対値を答えなさい。
+  -{a}
+answers:
+  絶対値: ans
+explanation: |-
+  絶対値は、数直線上で原点からその数までの距離です。符号を取り除いた値になります。
+  -{a} の絶対値は {ans} です。
+status: draft

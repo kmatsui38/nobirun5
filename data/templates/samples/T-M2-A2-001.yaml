@@ -1,0 +1,41 @@
+id: T-M2-A2-001
+item: M2-A2
+item_kind: knowledge
+item_index: 3
+format: numeric
+difficulty: 2
+title: 連立方程式（加減法）
+
+# 解 (x, y) を先に決めてから係数を作ることで、解が必ず整数になるようにする
+variables:
+  x0: { type: int, min: -5, max: 5 }
+  y0: { type: int, min: -5, max: 5, exclude: [0] }
+  a1: { type: int, min: 1, max: 4 }
+  b1: { type: int, min: 1, max: 4 }
+  a2: { type: int, min: 1, max: 4 }
+  b2: { type: int, min: -4, max: -1 }
+
+constraints:
+  - "a1 * b2 - a2 * b1 != 0"   # 一意解を持つ
+  - "x0 != y0"                 # 自明な対称解を避ける
+
+derived:
+  c1: "a1 * x0 + b1 * y0"
+  c2: "a2 * x0 + b2 * y0"
+
+body: |
+  次の連立方程式を解きなさい。
+  {a1}x + {b1}y = {c1}
+  {a2}x + ({b2})y = {c2}
+
+answers:
+  x: "x0"
+  y: "y0"
+
+explanation: |
+  加減法で文字を消去して解きます。
+  2つの式を組み合わせて y（または x）を消去し、残った一次方程式を解くと
+  x = {x0} が得られます。これを一方の式に代入すると y = {y0} となります。
+  答え: x = {x0}, y = {y0}
+
+status: draft

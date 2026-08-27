@@ -1,0 +1,26 @@
+id: T-M2-D2-002
+item: M2-D2
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 1
+title: くじを引く確率
+variables:
+  a:
+    type: int
+    min: 1
+    max: 19
+constraints: []
+derived:
+  n: '20'
+  ans: a * 5
+body: |-
+  {n}本のくじの中に当たりが {a}本あります。
+  この中から1本引くとき、当たりを引く確率を百分率（％）で答えなさい。
+answers:
+  確率: ans
+explanation: |-
+  どのくじを引くことも同様に確からしいので、
+  確率は （当たりの本数）÷（全部の本数）= {a} ÷ {n} です。
+  百分率にすると {ans}％ です。
+status: draft

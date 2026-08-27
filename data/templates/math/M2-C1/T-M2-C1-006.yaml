@@ -1,0 +1,46 @@
+id: T-M2-C1-006
+item: M2-C1
+item_kind: thinking
+item_index: 1
+format: choice
+difficulty: 1
+title: 表・式・グラフの関係
+variables:
+  q:
+    type: int
+    min: 1
+    max: 4
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 一次関数 y = ax + b で、a は グラフの何を表しますか。
+  2: 一次関数 y = ax + b で、b は グラフの何を表しますか。
+  3: 一次関数で、変化の割合はグラフの何と一致しますか。
+  4: 一次関数 y = ax + b で a < 0 のとき、グラフはどうなりますか。
+correct_by_case:
+  1: 傾き
+  2: 切片（y軸との交点のy座標）
+  3: 傾き
+  4: 右下がりの直線
+distractors_by_case:
+  1:
+  - 切片
+  - x の変域
+  - y の最大値
+  2:
+  - 傾き
+  - x軸との交点
+  - 変化の割合
+  3:
+  - 切片
+  - 原点からの距離
+  - x の値
+  4:
+  - 右上がりの直線
+  - 曲線
+  - 水平な直線
+explanation: |-
+  一次関数 y = ax + b のグラフは直線で、a が傾き（＝変化の割合）、b が切片です。
+  a > 0 なら右上がり、a < 0 なら右下がりの直線になります。
+status: draft

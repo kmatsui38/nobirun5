@@ -1,0 +1,28 @@
+id: T-M1-A2-004
+item: M1-A2
+item_kind: knowledge
+item_index: 4
+format: numeric
+difficulty: 1
+title: 式の値
+variables:
+  a: &id001
+    type: int
+    min: -9
+    max: 9
+    exclude:
+    - 0
+  b: *id001
+  x0: *id001
+constraints: []
+derived:
+  ans: a * x0 + b
+body: |-
+  x = {x0} のとき、次の式の値を求めなさい。
+  {a}x + ({b})
+answers:
+  値: ans
+explanation: |-
+  xに {x0} を代入します。
+  {a} × ({x0}) + ({b}) = {ans}
+status: draft

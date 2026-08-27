@@ -1,0 +1,34 @@
+id: T-M1-A3-004
+item: M1-A3
+item_kind: thinking
+item_index: 1
+format: choice
+difficulty: 1
+title: 方程式を解く手順の根拠
+variables:
+  q:
+    type: int
+    min: 1
+    max: 2
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 3x = 12 の両辺を3でわってよいのはなぜですか。
+  2: x + 5 = 8 で、5を移項して x = 8 - 5 としてよいのはなぜですか。
+correct_by_case:
+  1: 両辺を同じ数でわっても等式は成り立つから
+  2: 両辺から同じ数をひいても等式は成り立つから
+distractors_by_case:
+  1:
+  - 3が一番小さい数だから
+  - 12が3の倍数だから
+  - xの係数を1にする決まりだから
+  2:
+  - 5が右辺より小さいから
+  - 移項は必ずできる決まりだから
+  - 左辺を先に計算するから
+explanation: |-
+  方程式を解く操作は、すべて等式の性質にもとづいています。
+  両辺に同じ数をたす・ひく・かける、0でない同じ数でわる、という操作で解を求めます。
+status: draft

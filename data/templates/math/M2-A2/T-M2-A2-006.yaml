@@ -1,0 +1,40 @@
+id: T-M2-A2-006
+item: M2-A2
+item_kind: thinking
+item_index: 1
+format: choice
+difficulty: 2
+title: 解き方の選択
+variables:
+  q:
+    type: int
+    min: 1
+    max: 3
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: y = 2x - 1 と 3x + y = 9 を解くとき、能率のよい方法はどれですか。
+  2: 2x + 3y = 7 と 2x - y = 3 を解くとき、能率のよい方法はどれですか。
+  3: 加減法で式をたしたりひいたりしてよいのはなぜですか。
+correct_by_case:
+  1: 代入法
+  2: 加減法（x を消去）
+  3: 等式の両辺に同じ量を加減しているから
+distractors_by_case:
+  1:
+  - 加減法だけしか使えない
+  - グラフをかく
+  - 順に代入して試す
+  2:
+  - 代入法しか使えない
+  - 両辺をかけ算する
+  - y を先に推測する
+  3:
+  - 式は自由に組み合わせてよいから
+  - 係数がそろっているから
+  - 解が整数だから
+explanation: |-
+  一方の式が「y = …」の形なら代入法、同じ文字の係数がそろっていれば加減法が能率的です。
+  どちらも等式の性質にもとづいており、文字を1つ消去する点は同じです。
+status: draft

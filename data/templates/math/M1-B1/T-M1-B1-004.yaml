@@ -1,0 +1,40 @@
+id: T-M1-B1-004
+item: M1-B1
+item_kind: thinking
+item_index: 1
+format: choice
+difficulty: 1
+title: 作図の方法を考える
+variables:
+  q:
+    type: int
+    min: 1
+    max: 3
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 2点A, Bから等しい距離にある点を作図するには、何をかけばよいですか。
+  2: 角を2等分する半直線を作図するには、何を利用しますか。
+  3: 円の接線をかくとき、接点を通る半径と接線の関係はどうなりますか。
+correct_by_case:
+  1: 線分ABの垂直二等分線
+  2: 角の二等分線の作図
+  3: 垂直に交わる
+distractors_by_case:
+  1:
+  - 線分ABの延長
+  - 点Aを中心とする円だけ
+  - ∠Aの二等分線
+  2:
+  - 垂直二等分線の作図
+  - 円の接線の作図
+  - 平行線の作図
+  3:
+  - 平行になる
+  - 45°に交わる
+  - 重なる
+explanation: |-
+  求める点や線がもつ性質に着目すると、どの作図を使えばよいかが決まります。
+  円の接線は、その接点を通る半径に垂直です。
+status: draft

@@ -1,0 +1,33 @@
+id: T-M1-A3-001
+item: M1-A3
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 1
+title: 一元一次方程式（ax+b=c）
+variables:
+  a:
+    type: int
+    min: 2
+    max: 9
+  x0: &id001
+    type: int
+    min: -9
+    max: 9
+    exclude:
+    - 0
+  b: *id001
+constraints: []
+derived:
+  c: a * x0 + b
+  ax: a * x0
+body: |-
+  次の方程式を解きなさい。
+  {a}x + ({b}) = {c}
+answers:
+  x: x0
+explanation: |-
+  ({b}) を移項します。
+  {a}x = {c} - ({b}) = {ax}
+  両辺を {a} でわって x = {x0}
+status: draft

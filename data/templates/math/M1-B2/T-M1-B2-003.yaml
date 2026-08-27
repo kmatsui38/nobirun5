@@ -1,0 +1,33 @@
+id: T-M1-B2-003
+item: M1-B2
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 2
+title: 四角錐の体積
+variables:
+  a:
+    type: int
+    min: 2
+    max: 12
+  b:
+    type: int
+    min: 2
+    max: 12
+  k:
+    type: int
+    min: 1
+    max: 6
+constraints: []
+derived:
+  h: 3 * k
+  base: a * b
+  ans: a * b * k
+body: 底面が縦 {a}cm、横 {b}cm の長方形で、高さが {h}cm の四角錐の体積を求めなさい。
+answers:
+  体積: ans
+explanation: |-
+  角錐の体積は （底面積）×（高さ）÷ 3 で求めます。
+  底面積は {a} × {b} = {base}（cm²）
+  {base} × {h} ÷ 3 = {ans}（cm³）
+status: draft

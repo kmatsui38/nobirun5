@@ -1,0 +1,40 @@
+id: T-M1-A2-007
+item: M1-A2
+item_kind: thinking
+item_index: 1
+format: choice
+difficulty: 1
+title: 同類項をまとめる根拠
+variables:
+  q:
+    type: int
+    min: 1
+    max: 3
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 3x + 2x = 5x とまとめられるのはなぜですか。
+  2: 3x + 2 をこれ以上まとめられないのはなぜですか。
+  3: 2x + 3y をこれ以上まとめられないのはなぜですか。
+correct_by_case:
+  1: 分配法則が成り立つから
+  2: 3xと2は同類項ではないから
+  3: 文字が異なり同類項ではないから
+distractors_by_case:
+  1:
+  - 文字が同じだから偶然そうなる
+  - xが1だから
+  - 係数をたす決まりだから
+  2:
+  - 3と2が違う数だから
+  - xの値が分からないから
+  - 式が短いから
+  3:
+  - 係数が異なるから
+  - xとyの大きさが違うから
+  - 項が2つだけだから
+explanation: |-
+  3x + 2x は分配法則 (3 + 2)x = 5x により1つの項にまとめられます。
+  文字の部分が同じ項（同類項）だけをまとめることができます。
+status: draft

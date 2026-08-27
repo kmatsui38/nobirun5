@@ -1,0 +1,31 @@
+id: T-M1-C1-003
+item: M1-C1
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 2
+title: 反比例の式と値
+variables:
+  x0:
+    type: int
+    min: 1
+    max: 12
+  y0:
+    type: int
+    min: -9
+    max: 9
+    exclude:
+    - 0
+constraints: []
+derived:
+  a: x0 * y0
+  ans: y0
+body: |-
+  y は x に反比例し、y = {a}/x と表されます。
+  x = {x0} のときの y の値を求めなさい。
+answers:
+  y: ans
+explanation: |-
+  x に {x0} を代入します。
+  y = {a} ÷ {x0} = {ans}
+status: draft

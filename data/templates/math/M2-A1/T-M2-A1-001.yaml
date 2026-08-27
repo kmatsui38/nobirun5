@@ -1,0 +1,32 @@
+id: T-M2-A1-001
+item: M2-A1
+item_kind: knowledge
+item_index: 1
+format: numeric
+difficulty: 1
+title: 整式の加法
+variables:
+  a: &id001
+    type: int
+    min: -9
+    max: 9
+    exclude:
+    - 0
+  b: *id001
+  c: *id001
+  d: *id001
+constraints: []
+derived:
+  kx: a + c
+  ky: b + d
+body: |-
+  次の式を計算した結果について、x の係数と y の係数を答えなさい。
+  ({a}x + ({b})y) + ({c}x + ({d})y)
+answers:
+  xの係数: kx
+  yの係数: ky
+explanation: |-
+  同類項どうしをまとめます。
+  xの項: {a}x + {c}x = {kx}x
+  yの項: ({b})y + ({d})y = {ky}y
+status: draft

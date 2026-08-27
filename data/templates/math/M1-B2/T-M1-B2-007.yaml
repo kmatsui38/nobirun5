@@ -1,0 +1,46 @@
+id: T-M1-B2-007
+item: M1-B2
+item_kind: thinking
+item_index: 1
+format: choice
+difficulty: 1
+title: 立体の見方と表し方
+variables:
+  q:
+    type: int
+    min: 1
+    max: 4
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 長方形を、1つの辺を軸として1回転させてできる立体はどれですか。
+  2: 直角三角形を、直角をはさむ1辺を軸として1回転させてできる立体はどれですか。
+  3: 半円を、直径を軸として1回転させてできる立体はどれですか。
+  4: 立体を真上から見た図を何といいますか。
+correct_by_case:
+  1: 円柱
+  2: 円錐
+  3: 球
+  4: 平面図
+distractors_by_case:
+  1:
+  - 円錐
+  - 球
+  - 三角柱
+  2:
+  - 円柱
+  - 球
+  - 四角錐
+  3:
+  - 円柱
+  - 円錐
+  - 半球
+  4:
+  - 立面図
+  - 展開図
+  - 見取図
+explanation: |-
+  平面図形を回転させてできる立体を回転体といいます。
+  投影図では、真正面から見た図を立面図、真上から見た図を平面図といいます。
+status: draft

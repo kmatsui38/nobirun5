@@ -1,0 +1,46 @@
+id: T-M2-D1-003
+item: M2-D1
+item_kind: knowledge
+item_index: 2
+format: choice
+difficulty: 1
+title: 箱ひげ図の読み取り
+variables:
+  q:
+    type: int
+    min: 1
+    max: 4
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 箱ひげ図の「箱」の左端は何を表しますか。
+  2: 箱ひげ図の「箱」の中の線は何を表しますか。
+  3: 箱ひげ図の「ひげ」の両端は何を表しますか。
+  4: 箱ひげ図の箱の横の長さは何を表しますか。
+correct_by_case:
+  1: 第1四分位数
+  2: 中央値（第2四分位数）
+  3: 最小値と最大値
+  4: 四分位範囲
+distractors_by_case:
+  1:
+  - 最小値
+  - 中央値
+  - 平均値
+  2:
+  - 平均値
+  - 最頻値
+  - 第1四分位数
+  3:
+  - 第1四分位数と第3四分位数
+  - 平均値と中央値
+  - 度数の合計
+  4:
+  - 範囲
+  - 平均値
+  - データの個数
+explanation: |-
+  箱ひげ図は、最小値・第1四分位数・中央値・第3四分位数・最大値の5つの値で
+  データの分布を表したグラフです。箱の長さが四分位範囲を表します。
+status: draft

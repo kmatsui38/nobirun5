@@ -1,0 +1,28 @@
+id: T-M1-C1-008
+item: M1-C1
+item_kind: thinking
+item_index: 2
+format: numeric
+difficulty: 2
+title: 比例の活用（道のり）
+variables:
+  a:
+    type: int
+    min: 40
+    max: 90
+  t:
+    type: int
+    min: 3
+    max: 30
+constraints: []
+derived:
+  ans: a * t
+body: |-
+  分速 {a}m で歩くとき、x 分間に進む道のりを y m とします。
+  {t} 分間に進む道のりを求めなさい。
+answers:
+  道のり: ans
+explanation: |-
+  道のりは （速さ）×（時間）なので y = {a}x と表せます。
+  x = {t} を代入して y = {a} × {t} = {ans}（m）
+status: draft

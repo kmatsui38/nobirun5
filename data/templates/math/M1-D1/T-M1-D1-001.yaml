@@ -1,0 +1,25 @@
+id: T-M1-D1-001
+item: M1-D1
+item_kind: knowledge
+item_index: 1
+format: numeric
+difficulty: 2
+title: 相対度数
+variables:
+  a:
+    type: int
+    min: 1
+    max: 19
+constraints: []
+derived:
+  n: '20'
+  ans: a * 5
+body: |-
+  {n}人のクラスで、通学時間が10分未満の人は {a}人でした。
+  この階級の相対度数を百分率（％）で答えなさい。
+answers:
+  割合: ans
+explanation: |-
+  相対度数は （その階級の度数）÷（度数の合計）で求めます。
+  {a} ÷ {n} を計算し、100をかけると {ans}％ です。
+status: draft

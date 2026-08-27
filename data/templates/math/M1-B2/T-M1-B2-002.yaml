@@ -1,0 +1,34 @@
+id: T-M1-B2-002
+item: M1-B2
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 2
+title: 直方体の表面積
+variables:
+  a:
+    type: int
+    min: 2
+    max: 10
+  b:
+    type: int
+    min: 2
+    max: 10
+  h:
+    type: int
+    min: 2
+    max: 10
+constraints: []
+derived:
+  s1: a * b
+  s2: b * h
+  s3: a * h
+  ans: 2 * (a * b + b * h + a * h)
+body: 縦 {a}cm、横 {b}cm、高さ {h}cm の直方体の表面積を求めなさい。
+answers:
+  表面積: ans
+explanation: |-
+  向かい合う面が2つずつ、3種類あります。
+  {a}×{b}={s1}、{b}×{h}={s2}、{a}×{h}={s3}
+  表面積は 2 × ({s1} + {s2} + {s3}) = {ans}（cm²）
+status: draft

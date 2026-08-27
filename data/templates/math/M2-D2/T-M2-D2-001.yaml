@@ -1,0 +1,25 @@
+id: T-M2-D2-001
+item: M2-D2
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 2
+title: 2つのさいころと場合の数
+variables:
+  s:
+    type: int
+    min: 2
+    max: 7
+constraints: []
+derived:
+  ans: s - 1
+body: |-
+  大小2つのさいころを同時に投げます。
+  出る目の和が {s} になる場合は何通りありますか。
+answers:
+  通り: ans
+explanation: |-
+  和が {s} になる組み合わせを、大きいさいころの目を基準に数えます。
+  大の目が 1 から {ans} までのそれぞれについて小の目が1通りに決まるので、{ans}通りです。
+  （起こりうる場合は全部で 6 × 6 = 36通りです。）
+status: draft

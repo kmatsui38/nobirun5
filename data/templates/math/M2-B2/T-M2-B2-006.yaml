@@ -1,0 +1,29 @@
+id: T-M2-B2-006
+item: M2-B2
+item_kind: knowledge
+item_index: 1
+format: numeric
+difficulty: 1
+title: 合同な図形の対応
+variables:
+  a:
+    type: int
+    min: 3
+    max: 20
+  b:
+    type: int
+    min: 3
+    max: 20
+constraints: []
+derived:
+  ans: a
+body: |-
+  △ABC ≡ △DEF で、AB = {a}cm、BC = {b}cm です。
+  DE の長さを求めなさい。
+answers:
+  長さ: ans
+explanation: |-
+  合同な図形では、対応する辺の長さは等しくなります。
+  △ABC ≡ △DEF なので、AB と DE が対応します。
+  DE = AB = {ans}（cm）
+status: draft

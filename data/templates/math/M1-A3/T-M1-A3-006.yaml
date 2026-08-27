@@ -1,0 +1,37 @@
+id: T-M1-A3-006
+item: M1-A3
+item_kind: thinking
+item_index: 2
+format: numeric
+difficulty: 2
+title: 方程式の活用（過不足）
+variables:
+  a:
+    type: int
+    min: 3
+    max: 8
+  x0:
+    type: int
+    min: 4
+    max: 15
+  r:
+    type: int
+    min: 1
+    max: 9
+constraints:
+- (a + 1) * x0 - (a * x0 + r) > 0
+derived:
+  total: a * x0 + r
+  b: a + 1
+  d: (a + 1) * x0 - (a * x0 + r)
+body: |-
+  画用紙を何人かの子どもに配ります。
+  1人に {a}枚ずつ配ると {r}枚あまり、1人に {b}枚ずつ配ると {d}枚たりません。
+  子どもの人数を求めなさい。
+answers:
+  人数: x0
+explanation: |-
+  子どもの人数を x 人とすると、画用紙の枚数は {a}x + {r} とも {b}x - {d} とも表せます。
+  {a}x + {r} = {b}x - {d} を解いて x = {x0}（人）
+  （画用紙は {total}枚です）
+status: draft

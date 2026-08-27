@@ -1,0 +1,40 @@
+id: T-M1-B2-006
+item: M1-B2
+item_kind: knowledge
+item_index: 1
+format: choice
+difficulty: 1
+title: 空間における位置関係
+variables:
+  q:
+    type: int
+    min: 1
+    max: 3
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: 空間で、平行でなく交わりもしない2直線の位置関係を何といいますか。
+  2: 直方体で、1つの面に垂直な辺は何本ありますか。
+  3: 空間で、1つの直線とその上にない1点をふくむ平面は何個決まりますか。
+correct_by_case:
+  1: ねじれの位置
+  2: 4本
+  3: 1個
+distractors_by_case:
+  1:
+  - 平行
+  - 垂直
+  - 同一平面上
+  2:
+  - 2本
+  - 1本
+  - 6本
+  3:
+  - 2個
+  - 無数
+  - 0個
+explanation: |-
+  空間内の2直線の位置関係は、交わる・平行・ねじれの位置の3つです。
+  ねじれの位置にある2直線は同じ平面上にありません。
+status: draft

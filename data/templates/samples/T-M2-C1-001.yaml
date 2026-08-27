@@ -1,0 +1,36 @@
+id: T-M2-C1-001
+item: M2-C1
+item_kind: knowledge
+item_index: 1
+format: numeric
+difficulty: 1
+title: 一次関数の変化の割合
+
+# y = m x + n 上の2点から変化の割合を求める（mを先に決めるので答えは必ず整数）
+variables:
+  m: { type: int, min: -4, max: 4, exclude: [0] }
+  n: { type: int, min: -5, max: 5 }
+  x1: { type: int, min: -4, max: 2 }
+  d: { type: int, min: 1, max: 5 }
+
+constraints: []
+
+derived:
+  x2: "x1 + d"
+  y1: "m * x1 + n"
+  y2: "m * (x1 + d) + n"
+
+body: |
+  ある一次関数について、x = {x1} のとき y = {y1}、x = {x2} のとき y = {y2} です。
+  この一次関数の変化の割合を求めなさい。
+
+answers:
+  変化の割合: "m"
+
+explanation: |
+  変化の割合 = (yの増加量) ÷ (xの増加量) です。
+  yの増加量: {y2} - ({y1})
+  xの増加量: {x2} - ({x1}) = {d}
+  よって 変化の割合 = {m}
+
+status: draft

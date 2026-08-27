@@ -1,0 +1,34 @@
+id: T-M1-A3-005
+item: M1-A3
+item_kind: thinking
+item_index: 2
+format: numeric
+difficulty: 2
+title: 方程式の活用（代金）
+variables:
+  a:
+    type: int
+    min: 50
+    max: 200
+  b:
+    type: int
+    min: 50
+    max: 300
+  x0:
+    type: int
+    min: 2
+    max: 12
+constraints: []
+derived:
+  c: a * x0 + b
+  ax: a * x0
+body: |-
+  1個 {a}円のりんごを x 個買い、{b}円の箱に入れてもらったところ、
+  代金の合計は {c}円でした。りんごを何個買いましたか。
+answers:
+  個数: x0
+explanation: |-
+  代金の関係を式にすると {a}x + {b} = {c} です。
+  {a}x = {c} - {b} = {ax}
+  x = {x0}（個）
+status: draft

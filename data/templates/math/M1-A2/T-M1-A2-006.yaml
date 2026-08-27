@@ -1,0 +1,30 @@
+id: T-M1-A2-006
+item: M1-A2
+item_kind: knowledge
+item_index: 4
+format: numeric
+difficulty: 2
+title: 数量を式に表す
+variables:
+  a:
+    type: int
+    min: 30
+    max: 150
+  b:
+    type: int
+    min: 50
+    max: 300
+constraints: []
+derived:
+  kx: a
+  kc: b
+body: |-
+  1本 {a}円の鉛筆を x 本と、{b}円のノートを1冊買いました。
+  代金の合計を x を使った式で表したとき、xの係数と定数項を答えなさい。
+answers:
+  xの係数: kx
+  定数項: kc
+explanation: |-
+  鉛筆の代金は {a} × x = {a}x（円）、ノートは {b}円です。
+  合計は {a}x + {b}（円）なので、xの係数は {kx}、定数項は {kc} です。
+status: draft

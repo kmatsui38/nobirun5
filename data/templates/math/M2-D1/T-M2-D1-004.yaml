@@ -1,0 +1,40 @@
+id: T-M2-D1-004
+item: M2-D1
+item_kind: knowledge
+item_index: 1
+format: choice
+difficulty: 1
+title: 四分位数の用語
+variables:
+  q:
+    type: int
+    min: 1
+    max: 3
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: データを小さい順に並べて4等分する位置の値を何といいますか。
+  2: 第2四分位数は、別の言い方では何ですか。
+  3: 四分位範囲が小さいことは、何を意味しますか。
+correct_by_case:
+  1: 四分位数
+  2: 中央値
+  3: 中央付近にデータが集まっている
+distractors_by_case:
+  1:
+  - 階級値
+  - 相対度数
+  - 累積度数
+  2:
+  - 平均値
+  - 最頻値
+  - 範囲
+  3:
+  - データの個数が少ない
+  - 平均値が小さい
+  - 最大値が小さい
+explanation: |-
+  四分位数はデータを4等分する位置の値で、第2四分位数は中央値と同じです。
+  四分位範囲が小さいほど、中央付近にデータが集中しているといえます。
+status: draft

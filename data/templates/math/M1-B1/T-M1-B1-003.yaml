@@ -1,0 +1,25 @@
+id: T-M1-B1-003
+item: M1-B1
+item_kind: knowledge
+item_index: 2
+format: numeric
+difficulty: 2
+title: 回転移動の角度
+variables:
+  a:
+    type: int
+    min: 1
+    max: 35
+constraints: []
+derived:
+  deg: 10 * a
+  ans: 360 - 10 * a
+body: |-
+  点Oを中心として、時計回りに {deg}° 回転移動しました。
+  これは反時計回りに何度回転移動したことと同じですか。
+answers:
+  角度: ans
+explanation: |-
+  1回転は360°です。時計回りに {deg}° 回すことは、
+  反時計回りに 360 - {deg} = {ans}（°）回すことと同じになります。
+status: draft

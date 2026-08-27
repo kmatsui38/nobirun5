@@ -1,0 +1,46 @@
+id: T-M1-A1-009
+item: M1-A1
+item_kind: thinking
+item_index: 1
+format: choice
+difficulty: 1
+title: 計算結果の符号
+variables:
+  q:
+    type: int
+    min: 1
+    max: 4
+constraints: []
+derived: {}
+case_var: q
+body_by_case:
+  1: （負の数）＋（負の数）の答えの符号はどれですか。
+  2: （負の数）×（負の数）の答えの符号はどれですか。
+  3: （正の数）×（負の数）の答えの符号はどれですか。
+  4: （負の数）÷（負の数）の答えの符号はどれですか。
+correct_by_case:
+  1: 負
+  2: 正
+  3: 負
+  4: 正
+distractors_by_case:
+  1:
+  - 正
+  - '0'
+  - 場合による
+  2:
+  - 負
+  - '0'
+  - 場合による
+  3:
+  - 正
+  - '0'
+  - 場合による
+  4:
+  - 負
+  - '0'
+  - 場合による
+explanation: |-
+  同符号どうしの積・商は正、異符号どうしの積・商は負になります。
+  負の数どうしの和は、絶対値の和に負の符号がついて負になります。
+status: draft

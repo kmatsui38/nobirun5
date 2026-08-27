@@ -1,0 +1,29 @@
+id: T-M1-D1-002
+item: M1-D1
+item_kind: knowledge
+item_index: 1
+format: numeric
+difficulty: 1
+title: データの範囲
+variables:
+  mn:
+    type: int
+    min: 0
+    max: 30
+  d:
+    type: int
+    min: 1
+    max: 40
+constraints: []
+derived:
+  mx: mn + d
+  ans: d
+body: |-
+  あるデータの最大値は {mx}、最小値は {mn} でした。
+  このデータの範囲を求めなさい。
+answers:
+  範囲: ans
+explanation: |-
+  範囲は （最大値）-（最小値）で求めます。
+  {mx} - {mn} = {ans}
+status: draft
