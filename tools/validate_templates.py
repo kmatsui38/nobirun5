@@ -30,9 +30,11 @@ except ModuleNotFoundError:  # pragma: no cover
 SAMPLES = 100
 MAX_TRIES = 1000
 
+# ast.Num は Python 3.12 で削除された。3.8以降は数値も ast.Constant として
+# パースされるため、ast.Constant だけで足りる。
 ALLOWED_NODES = (
     ast.Expression, ast.BinOp, ast.UnaryOp, ast.Compare, ast.BoolOp,
-    ast.Num, ast.Constant, ast.Name, ast.Load,
+    ast.Constant, ast.Name, ast.Load,
     ast.Add, ast.Sub, ast.Mult, ast.Div, ast.FloorDiv, ast.Mod, ast.Pow,
     ast.USub, ast.UAdd,
     ast.Eq, ast.NotEq, ast.Lt, ast.LtE, ast.Gt, ast.GtE,
