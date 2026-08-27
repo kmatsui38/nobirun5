@@ -18,7 +18,8 @@ type UnitStat = {
 // 既習単元の定着度（avg_box 0〜5）に応じた色。
 // 未習単元は色をつけず、これから習うことが分かる見た目にする。
 function tileClass(u: UnitStat): string {
-  if (!u.learned) return "bg-stone-50 text-stone-400 border border-dashed border-stone-300";
+  if (!u.learned)
+    return "bg-white text-stone-400 border-2 border-dashed border-stone-300";
   if (u.touched_count === 0) return "bg-stone-100 text-stone-500";
   if (u.avg_box < 1.5) return "bg-red-100 text-red-800";
   if (u.avg_box < 3) return "bg-amber-100 text-amber-800";
@@ -124,7 +125,7 @@ export default function MapPage() {
                 習ったけど、まだ出題されていない
               </li>
               <li className="flex items-center gap-2">
-                <span className="inline-block w-4 h-4 rounded bg-stone-50 border border-dashed border-stone-300" />
+                <span className="inline-block w-4 h-4 rounded bg-white border-2 border-dashed border-stone-300" />
                 まだ習っていない（出題されない）
               </li>
             </ul>
