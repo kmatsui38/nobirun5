@@ -41,10 +41,14 @@ MVPは Vercel にgit連携でデプロイする。手順は次のとおり。
 2. **Vercel でプロジェクトを作成**
    [vercel.com](https://vercel.com) にGitHubアカウントでログイン →
    「Add New… → Project」→ `kmatsui38/nobirun5` を Import。
-3. **Root Directory に `web` を指定する**（重要）
+3. **Root Directory に `web` を指定する**（必須）
    リポジトリ直下ではなく `web` がフロントのルート。Import画面の
    「Root Directory」の Edit から `web` を選ぶ。
-   Framework Preset は Next.js が自動で選ばれる。
+   ここが未設定だと、ビルド成果物が見つからず全ページが 404（`Code: NOT_FOUND`）になる。
+
+   ビルド方法と配信ディレクトリは `web/vercel.json` で明示している
+   （`npm run build` を実行し、静的エクスポートの出力先 `out/` を配信する）。
+   Vercel の Framework Preset や Output Directory を手動で上書きしないこと。
 4. **環境変数を2つ設定する**（Environment Variables）
    Supabase の Project Settings → API からコピーする。
    `NEXT_PUBLIC_*` はビルド時に埋め込まれるため、**デプロイ前に設定すること**。
@@ -60,6 +64,15 @@ MVPは Vercel にgit連携でデプロイする。手順は次のとおり。
    （iOS: 共有 → ホーム画面に追加 / Android: メニュー → ホーム画面に追加）。
 
 以後は main への push で自動的に再デプロイされる。
+
+### 全ページが404になるとき
+
+- `Code: NOT_FOUND` … デプロイは存在するが配信するファイルが無い状態。
+  **Root Directory が `web` になっているか**を Project Settings → Build and Deployment で確認する。
+  設定を変えただけでは再ビルドされないので、Deployments → 最新 → ⋯ → **Redeploy** を実行する。
+- `Code: DEPLOYMENT_NOT_FOUND` … そのデプロイ自体が存在しない（URLが古い）。
+  Project のトップに出ている本番ドメインを開き直す。
+- Build Logs に `Detected Next.js version` や `Build Completed` が出ているかも確認する。
 
 ### anonキーを公開してよい理由
 
