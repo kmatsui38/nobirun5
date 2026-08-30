@@ -64,6 +64,34 @@ on conflict (user_id, unit_id) do update set learned = excluded.learned;
 -- 特定の生徒だけに適用したい場合は、上の where を次に置き換える:
 --  where p.user_id = 'ここにユーザーid'
 
+-- 1-3c. 【新規ユーザー1人分】メールアドレスで指定してセットアップする
+--
+-- Authentication → Users でアカウントを作った直後に、この2つを続けて実行する。
+-- profiles / streaks はトリガで自動作成されているので、ここでは中身を設定するだけ。
+-- 他の生徒には影響しない。
+
+-- (1) ニックネームと学年を設定する
+with target as (
+  select id from auth.users where email = 'ここに新規ユーザーのメールアドレス'
+)
+update profiles p set nickname = 'ここにニックネーム', grade = 2
+  from target t where p.user_id = t.id;
+
+-- (2) 既習範囲を「中2の1学期まで」に設定する
+--     （1学期に一次関数まで終わっていれば ('M2-C1') を scope に追加する）
+with target as (
+  select id from auth.users where email = 'ここに新規ユーザーのメールアドレス'
+),
+scope(unit_id) as (
+  values ('M1-A1'), ('M1-A2'), ('M1-A3'), ('M1-B1'),
+         ('M1-B2'), ('M1-C1'), ('M1-D1'), ('M1-D2'),
+         ('M2-A1'), ('M2-A2')
+)
+insert into user_scope (user_id, unit_id, learned)
+select t.id, u.id, (u.id in (select unit_id from scope))
+  from target t cross join units u
+on conflict (user_id, unit_id) do update set learned = excluded.learned;
+
 -- 1-4. 設定した既習範囲を確認する（要約）
 --      学年ごとに「何単元まで習ったか」と、その単元名を並べて表示する。
 select p.nickname, u.grade as 学年,
