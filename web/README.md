@@ -17,6 +17,8 @@ nobirun5 のフロントエンド（Next.js 静的SPA）。
 1. [Supabase](https://supabase.com) でプロジェクトを作成
 2. SQLエディタで `../supabase/migrations/*.sql` を番号順に実行
 3. `supabase/seed.sql`（リポジトリ同梱・自動生成済み）をSQLエディタで実行
+   **テンプレートを追加したときは、その都度これを再実行する。**
+   このSQLは何度でも実行でき、解答履歴・定着度・承認状態を壊さない（UPSERT形式）。
 4. サンプルテンプレートを検品のうえ承認: `update templates set status = 'approved' where id in (...);`
    （検品フローの「人の検品」に相当。実際に数問解いて確認してから承認する）
 5. Authentication → Users から被験者のアカウント（メール+パスワード）を作成
@@ -64,6 +66,19 @@ MVPは Vercel にgit連携でデプロイする。手順は次のとおり。
    （iOS: 共有 → ホーム画面に追加 / Android: メニュー → ホーム画面に追加）。
 
 以後は main への push で自動的に再デプロイされる。
+
+### 1日の問題数が7問より少ないとき
+
+出題数は「候補となる学習事項 × 承認済みテンプレート」で決まる。少ない場合は次を確認する。
+
+```sql
+-- 承認済みテンプレートの本数（103本あるはず）
+select status, count(*) from templates group by status;
+```
+
+4本しかない場合は、最新の `supabase/seed.sql` を実行してから
+`update templates set status = 'approved';` で承認する。
+（テンプレートを103本に増やした後、seed.sql の再実行を忘れると起きる）
 
 ### 全ページが404になるとき
 
