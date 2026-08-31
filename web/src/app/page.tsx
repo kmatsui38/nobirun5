@@ -8,7 +8,15 @@ type HomeState =
   | { kind: "loading" }
   | { kind: "unconfigured" }
   | { kind: "signed_out" }
-  | { kind: "ready"; nickname: string; streak: number; todayDone: boolean };
+  | {
+      kind: "ready";
+      nickname: string;
+      streak: number;
+      todayDone: boolean;
+      // 途中で中断したときに「つづきから」を出すための進捗
+      answered: number;
+      total: number;
+    };
 
 export default function HomePage() {
   const [state, setState] = useState<HomeState>({ kind: "loading" });
@@ -37,7 +45,14 @@ export default function HomePage() {
       // ホーム表示に必要な情報を取得（プロフィール・ストリーク・今日の完了状態）
       const { data: home, error } = await supabase.rpc("get_home");
       if (error || !home) {
-        setState({ kind: "ready", nickname: "", streak: 0, todayDone: false });
+        setState({
+          kind: "ready",
+          nickname: "",
+          streak: 0,
+          todayDone: false,
+          answered: 0,
+          total: 0,
+        });
         return;
       }
       setState({
@@ -45,6 +60,8 @@ export default function HomePage() {
         nickname: home.nickname ?? "",
         streak: home.streak ?? 0,
         todayDone: home.today_done ?? false,
+        answered: home.today_answered ?? 0,
+        total: home.today_total ?? 0,
       });
     });
   }, []);
@@ -86,6 +103,10 @@ export default function HomePage() {
     );
   }
 
+  // 今日のセットを途中まで解いて中断している状態
+  const inProgress =
+    !state.todayDone && state.answered > 0 && state.answered < state.total;
+
   return (
     <main className="flex-1 flex flex-col p-6 gap-6">
       <header className="pt-4">
@@ -111,12 +132,19 @@ export default function HomePage() {
             <p className="text-sm text-stone-600">また明日、続けよう。</p>
           </div>
         ) : (
-          <Link
-            href="/session/"
-            className="rounded-full bg-emerald-600 px-10 py-4 text-white text-lg font-bold shadow"
-          >
-            今日の復習をはじめる
-          </Link>
+          <div className="text-center flex flex-col gap-3">
+            <Link
+              href="/session/"
+              className="rounded-full bg-emerald-600 px-10 py-4 text-white text-lg font-bold shadow"
+            >
+              {inProgress ? "つづきから再開する" : "今日の復習をはじめる"}
+            </Link>
+            {inProgress && (
+              <p className="text-sm text-stone-600">
+                {state.answered} / {state.total} 問おわってるよ
+              </p>
+            )}
+          </div>
         )}
       </section>
 

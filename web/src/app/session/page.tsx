@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { getSupabase, isSupabaseConfigured } from "@/lib/supabase";
 
@@ -9,6 +10,7 @@ type Question = {
   seq: number;
   format: "numeric" | "choice";
   body: string;
+  memo: string | null;
   choices: string[] | null;
   answer_fields: string[] | null;
   answered: boolean;
@@ -18,6 +20,7 @@ type Question = {
 type SetData = {
   set_id: string;
   set_date: string;
+  started_at: string | null;
   completed: boolean;
   questions: Question[];
 };
@@ -35,45 +38,41 @@ type Phase =
   | { kind: "result"; index: number; result: Result }
   | { kind: "done"; streak: number | null };
 
+const MEMO_SAVE_DELAY_MS = 800;
+
 export default function SessionPage() {
+  const router = useRouter();
   const [setData, setSetData] = useState<SetData | null>(null);
   const [phase, setPhase] = useState<Phase>({ kind: "loading" });
   const [inputs, setInputs] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
   const [confidence, setConfidence] = useState<boolean | null>(null);
+  const [memo, setMemo] = useState("");
+  const [resumedFrom, setResumedFrom] = useState<number | null>(null);
 
-  useEffect(() => {
-    if (!isSupabaseConfigured) {
-      setPhase({ kind: "error", message: "Supabaseが未設定です。" });
-      return;
+  // 1問あたりの所要時間。「問題が実際に画面に見えていた時間」だけを足す。
+  // 画面を伏せた・別アプリに移った時間は数えない（考えていた時間ではないため）。
+  const timer = useRef<{ acc: number; since: number | null }>({
+    acc: 0,
+    since: null,
+  });
+  const startTimer = useCallback(() => {
+    timer.current = { acc: 0, since: Date.now() };
+  }, []);
+  const pauseTimer = useCallback(() => {
+    const t = timer.current;
+    if (t.since !== null) {
+      t.acc += Date.now() - t.since;
+      t.since = null;
     }
-    const supabase = getSupabase();
-    supabase.rpc("get_or_create_daily_set").then(({ data, error }) => {
-      if (error || !data) {
-        setPhase({ kind: "error", message: "セットの取得に失敗しました。" });
-        return;
-      }
-      if (data.error === "no_questions") {
-        setPhase({
-          kind: "error",
-          message: "出題できる問題がありません（テンプレート未承認の可能性）。",
-        });
-        return;
-      }
-      const set = data as SetData;
-      setSetData(set);
-      if (set.completed) {
-        setPhase({ kind: "done", streak: null });
-        return;
-      }
-      const next = set.questions.findIndex((q) => !q.answered);
-      if (next === -1) {
-        void completeSet(set.set_id);
-      } else {
-        setPhase({ kind: "question", index: next });
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const resumeTimer = useCallback(() => {
+    const t = timer.current;
+    if (t.since === null) t.since = Date.now();
+  }, []);
+  const readTimer = useCallback(() => {
+    const t = timer.current;
+    return Math.round(t.acc + (t.since !== null ? Date.now() - t.since : 0));
   }, []);
 
   const current = useMemo(() => {
@@ -82,13 +81,100 @@ export default function SessionPage() {
     return setData.questions[phase.index];
   }, [setData, phase]);
 
-  async function completeSet(setId: string) {
-    const supabase = getSupabase();
-    const { data } = await supabase.rpc("complete_daily_set", {
+  // メモは書いたそばから保存する。中断しても消えないようにするため。
+  const savedMemo = useRef("");
+  const saveMemo = useCallback(async (questionId: string, text: string) => {
+    if (text === savedMemo.current) return;
+    const previous = savedMemo.current;
+    savedMemo.current = text;
+    try {
+      await getSupabase().rpc("save_memo", {
+        p_set_question_id: questionId,
+        p_memo: text,
+      });
+    } catch {
+      // メモの保存失敗で学習を止めない。
+      // 保存済みの目印を戻しておき、次の入力か送信時にもう一度保存させる。
+      savedMemo.current = previous;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!current || phase.kind === "done") return;
+    const id = current.id;
+    const t = setTimeout(() => {
+      void saveMemo(id, memo);
+      current.memo = memo === "" ? null : memo;
+    }, MEMO_SAVE_DELAY_MS);
+    return () => clearTimeout(t);
+  }, [memo, current, phase.kind, saveMemo]);
+
+  // 画面が見えていない間はタイマーを止める
+  useEffect(() => {
+    function onVisibility() {
+      if (document.hidden) pauseTimer();
+      else if (phase.kind === "question") resumeTimer();
+    }
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, [phase.kind, pauseTimer, resumeTimer]);
+
+  const showQuestion = useCallback(
+    (set: SetData, index: number) => {
+      setInputs({});
+      setConfidence(null);
+      const q = set.questions[index];
+      setMemo(q.memo ?? "");
+      savedMemo.current = q.memo ?? "";
+      startTimer();
+      setPhase({ kind: "question", index });
+    },
+    [startTimer]
+  );
+
+  const completeSet = useCallback(async (setId: string) => {
+    const { data } = await getSupabase().rpc("complete_daily_set", {
       p_set_id: setId,
     });
     setPhase({ kind: "done", streak: data?.streak ?? null });
-  }
+  }, []);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured) {
+      setPhase({ kind: "error", message: "Supabaseが未設定です。" });
+      return;
+    }
+    getSupabase()
+      .rpc("get_or_create_daily_set")
+      .then(({ data, error }) => {
+        if (error || !data) {
+          setPhase({ kind: "error", message: "セットの取得に失敗しました。" });
+          return;
+        }
+        if (data.error === "no_questions") {
+          setPhase({
+            kind: "error",
+            message: "出題できる問題がありません（テンプレート未承認の可能性）。",
+          });
+          return;
+        }
+        const set = data as SetData;
+        setSetData(set);
+        if (set.completed) {
+          setPhase({ kind: "done", streak: null });
+          return;
+        }
+        const next = set.questions.findIndex((q) => !q.answered);
+        if (next === -1) {
+          void completeSet(set.set_id);
+          return;
+        }
+        // 途中まで解いていたら、その次の問題から再開する
+        if (next > 0) setResumedFrom(next + 1);
+        showQuestion(set, next);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function submit() {
     if (!setData || !current || phase.kind !== "question" || busy) return;
@@ -102,12 +188,15 @@ export default function SessionPage() {
         answer[f] = inputs[f].trim();
       }
     }
+    const elapsedMs = readTimer();
+    pauseTimer();
     setBusy(true);
     try {
-      const supabase = getSupabase();
-      const { data, error } = await supabase.rpc("submit_answer", {
+      await saveMemo(current.id, memo);
+      const { data, error } = await getSupabase().rpc("submit_answer", {
         p_set_question_id: current.id,
         p_answer: answer,
+        p_elapsed_ms: elapsedMs,
       });
       if (error || !data) {
         setPhase({ kind: "error", message: "解答の送信に失敗しました。" });
@@ -139,26 +228,40 @@ export default function SessionPage() {
 
   function next() {
     if (!setData || phase.kind !== "result") return;
-    setInputs({});
-    setConfidence(null);
+    // 再開の案内は最初の1問だけに出す（次の問題からは今日の続きなので）
+    setResumedFrom(null);
     const nextIndex = setData.questions.findIndex((q) => !q.answered);
     if (nextIndex === -1) {
       void completeSet(setData.set_id);
     } else {
-      setPhase({ kind: "question", index: nextIndex });
+      showQuestion(setData, nextIndex);
     }
+  }
+
+  // 中断。解答済みの分はサーバに残るので、次に開けば続きから再開できる。
+  async function pause() {
+    pauseTimer();
+    if (current) await saveMemo(current.id, memo);
+    router.push("/");
   }
 
   const total = setData?.questions.length ?? 0;
   const answeredCount = setData?.questions.filter((q) => q.answered).length ?? 0;
+  const inProgress = phase.kind === "question" || phase.kind === "result";
 
   return (
     <main className="flex-1 flex flex-col p-6">
       <header className="flex items-center justify-between pt-4 mb-4">
         <h1 className="font-bold">今日の復習</h1>
-        <Link href="/" className="text-sm text-stone-500">
-          とじる
-        </Link>
+        {inProgress ? (
+          <button onClick={pause} className="text-sm text-stone-500 underline">
+            中断する
+          </button>
+        ) : (
+          <Link href="/" className="text-sm text-stone-500">
+            とじる
+          </Link>
+        )}
       </header>
 
       {total > 0 && phase.kind !== "done" && (
@@ -182,8 +285,14 @@ export default function SessionPage() {
         </div>
       )}
 
-      {(phase.kind === "question" || phase.kind === "result") && current && (
+      {inProgress && current && (
         <div className="flex flex-col gap-5">
+          {resumedFrom !== null && (
+            <p className="rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3 text-xs text-emerald-800">
+              前回のつづき、{resumedFrom}問目からはじめるよ。
+            </p>
+          )}
+
           <p className="text-xs text-stone-500">
             {answeredCount + (phase.kind === "result" ? 0 : 1)} / {total} 問目
           </p>
@@ -231,14 +340,37 @@ export default function SessionPage() {
             </div>
           )}
 
+          {/* 途中式や気づいたことを書きとめる欄。書いたそばから保存される。 */}
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="memo" className="text-xs text-stone-500">
+              メモ（途中式・気づいたこと）
+            </label>
+            <textarea
+              id="memo"
+              rows={4}
+              value={memo}
+              onChange={(e) => setMemo(e.target.value)}
+              onBlur={() => current && void saveMemo(current.id, memo)}
+              maxLength={2000}
+              placeholder="計算の途中や、まちがえた理由を書いておこう"
+              className="rounded-xl border border-stone-300 bg-white px-3 py-3 text-base leading-relaxed"
+            />
+          </div>
+
           {phase.kind === "question" && (
-            <button
-              onClick={submit}
-              disabled={busy}
-              className="rounded-full bg-emerald-600 py-3 text-white font-bold disabled:opacity-50"
-            >
-              {busy ? "採点中…" : "こたえる"}
-            </button>
+            <>
+              <button
+                onClick={submit}
+                disabled={busy}
+                className="rounded-full bg-emerald-600 py-3 text-white font-bold disabled:opacity-50"
+              >
+                {busy ? "採点中…" : "こたえる"}
+              </button>
+              <p className="text-xs text-stone-500 text-center">
+                ここまでの解答とメモは保存されているよ。
+                中断しても、つづきから再開できる。
+              </p>
+            </>
           )}
 
           {phase.kind === "result" && (

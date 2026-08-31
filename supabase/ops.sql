@@ -172,6 +172,43 @@ select p.nickname, d.set_date,
  group by p.nickname, d.set_date, d.completed_at
  order by d.set_date desc, p.nickname;
 
+-- 2-2b. 学習時間（1日ごと）
+--   所要時間   = 開始から完了までの実時間。中断した休憩時間も含む
+--   実学習時間 = 各問を画面に出してから解答するまでの合計。休憩は含まない
+--   中断回数   = 解答と解答の間が10分以上あいた回数
+select p.nickname, d.set_date,
+       to_char(d.started_at   at time zone 'Asia/Tokyo', 'HH24:MI') as 開始,
+       to_char(d.completed_at at time zone 'Asia/Tokyo', 'HH24:MI') as 終了,
+       case when d.completed_at is not null and d.started_at is not null
+            then justify_interval(d.completed_at - d.started_at) end as 所要時間,
+       (select justify_interval(make_interval(secs => sum(a.elapsed_ms) / 1000.0))
+          from attempts a join set_questions q on q.id = a.set_question_id
+         where q.set_id = d.id and a.user_id = d.user_id)            as 実学習時間,
+       (select count(*) from (
+          select a.answered_at - lag(a.answered_at) over (order by a.answered_at) as gap
+            from attempts a join set_questions q on q.id = a.set_question_id
+           where q.set_id = d.id and a.user_id = d.user_id
+        ) g where g.gap > interval '10 minutes')                     as 中断回数
+  from daily_sets d
+  join profiles p on p.user_id = d.user_id
+ where d.set_date > current_date - 14
+ order by d.set_date desc, p.nickname;
+
+-- 2-2c. 1問あたりにかかった時間（単元ごとの平均。時間がかかる＝苦手のサイン）
+select p.nickname, u.name as 単元,
+       count(a.id)                                  as 解答数,
+       round(avg(a.elapsed_ms) / 1000.0, 1)         as 平均秒,
+       round(max(a.elapsed_ms) / 1000.0, 1)         as 最長秒,
+       round(100.0 * avg(case when a.is_correct then 1 else 0 end), 1) as 正答率
+  from attempts a
+  join set_questions q on q.id = a.set_question_id
+  join learning_items li on li.id = q.item_id
+  join units u on u.id = li.unit_id
+  join profiles p on p.user_id = a.user_id
+ where a.elapsed_ms is not null
+ group by p.nickname, u.name, u.seq
+ order by p.nickname, 平均秒 desc nulls last;
+
 -- 2-3. 単元ごとの定着度（苦手マップと同じ集計）
 select p.nickname, u.grade, u.name as 単元,
        count(m.item_id)              as 学習した事項数,
@@ -201,7 +238,9 @@ select p.nickname, u.name as 単元, li.text as 学習事項, m.box, m.due_date
 select p.nickname, d.set_date, q.seq, u.name as 単元, li.text as 学習事項,
        t.title as テンプレート, q.rendered_body as 問題,
        a.answer::text as 解答, q.correct_answer::text as 正解,
-       a.is_correct as 正誤, a.confidence as 自信申告, a.answered_at
+       a.is_correct as 正誤, a.confidence as 自信申告,
+       round(a.elapsed_ms / 1000.0, 1) as 所要秒, q.memo as メモ,
+       a.answered_at
   from attempts a
   join set_questions q on q.id = a.set_question_id
   join daily_sets d on d.id = q.set_id
@@ -269,3 +308,15 @@ language sql stable as $$ select 5 $$;   -- ← ここの数字を 3〜5 で変�
 
 -- 現在の設定値を確認する
 select nobirun_set_size() as 出題数;
+
+-- 4-4. 生徒が書いたメモ（つまずきの中身を読む。定量では拾えないものが出る）
+select p.nickname, d.set_date, u.name as 単元,
+       q.rendered_body as 問題, a.is_correct as 正誤, q.memo as メモ
+  from set_questions q
+  join daily_sets d on d.id = q.set_id
+  join profiles p on p.user_id = d.user_id
+  join learning_items li on li.id = q.item_id
+  join units u on u.id = li.unit_id
+  left join attempts a on a.set_question_id = q.id and a.user_id = d.user_id
+ where q.memo is not null
+ order by d.set_date desc, q.seq;
