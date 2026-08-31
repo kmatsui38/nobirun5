@@ -254,3 +254,18 @@ select u.grade, u.id as unit_id, u.name, count(*) as 承認済み本数
 -- delete from mastery     where user_id = 'ここにユーザーid';
 -- update streaks set current = 0, best = 0, last_completed_date = null
 --  where user_id = 'ここにユーザーid';
+
+-- 4-3. 1日の出題数を変える（3〜5問の範囲で調整する）
+-- 既定は5問。多い/少ないと感じたらこの1文だけを実行すればよい。
+create or replace function nobirun_set_size() returns int
+language sql stable as $$ select 5 $$;   -- ← ここの数字を 3〜5 で変える
+
+-- 変更は「その日のセットがまだ生成されていないユーザー」から効く。
+-- すでに今日の分が生成済みの場合、今日の問題数は変わらない。
+-- 今日から反映したいときは、その日のセットを作り直す（今日の解答履歴も消える）:
+-- delete from daily_sets
+--  where set_date = ((now() at time zone 'Asia/Tokyo') - interval '4 hours')::date
+--    and user_id = (select id from auth.users where email = 'ここにメールアドレス');
+
+-- 現在の設定値を確認する
+select nobirun_set_size() as 出題数;
